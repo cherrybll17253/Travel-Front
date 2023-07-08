@@ -50,5 +50,8 @@
 		"typescript": "^5.1.6",
 		"vite": "^4.3.6"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"firebase": "^9.23.0"
+	}
 }

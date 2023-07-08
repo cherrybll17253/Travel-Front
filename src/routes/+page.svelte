@@ -72,7 +72,7 @@
         </Section>
     </Row>
 </TopAppBar>
-<Drawer variant="modal" bind:open style="background-color:brown">
+<Drawer variant="modal" bind:open style="background-color:brown; width:40%;">
     <Header>
         <br><br><br><drawertitle><sub>UD<sub /><sup>GA<sup>JI</sup></sup></sub></drawertitle><Title />
         <Subtitle>Enjoy our services, adventurer!</Subtitle>
@@ -81,21 +81,11 @@
         <List>
             <Item
                 href="javascript:void(0)"
-                on:click={() => setActive("Inbox")}
-                activated={active === "Inbox"}
-            >
-                <Graphic class="material-icons" aria-hidden="true">
-                    P
-                </Graphic>
-                <Text>Picked Places</Text>
-            </Item>
-            <Item
-                href="javascript:void(0)"
                 on:click={() => setActive("Star")}
                 activated={active === "Star"}
             >
-                <Graphic class="material-icons" aria-hidden="true">thumb</Graphic>
-                <Text>Star</Text>
+                <Graphic class="material-icons" aria-hidden="true">star</Graphic>
+                <Text>Starred Destination</Text>
             </Item>
             <Item
                 href="javascript:void(0)"
@@ -115,30 +105,30 @@
             </Item>
 
             <Separator />
-            <Subheader tag="h6">Labels</Subheader>
+            <Subheader tag="h6">Filter</Subheader>
             <Item
                 href="javascript:void(0)"
-                on:click={() => setActive("Family")}
-                activated={active === "Family"}
+                on:click={() => setActive("Fdistance")}
+                activated={active === "Fdistance"}
             >
-                <Graphic class="material-icons" aria-hidden="true">bookmark</Graphic>
-                <Text>Family</Text>
+                <Graphic class="material-icons" aria-hidden="true">list</Graphic>
+                <Text>By distance</Text>
             </Item>
             <Item
                 href="javascript:void(0)"
-                on:click={() => setActive("Friends")}
-                activated={active === "Friends"}
+                on:click={() => setActive("Fbudget")}
+                activated={active === "Fbudget"}
             >
-                <Graphic class="material-icons" aria-hidden="true">bookmark</Graphic>
-                <Text>Friends</Text>
+                <Graphic class="material-icons" aria-hidden="true">list</Graphic>
+                <Text>By budget</Text>
             </Item>
             <Item
                 href="javascript:void(0)"
-                on:click={() => setActive("Work")}
-                activated={active === "Work"}
+                on:click={() => setActive("Fweather")}
+                activated={active === "Fweather"}
             >
-                <Graphic class="material-icons" aria-hidden="true">bookmark</Graphic>
-                <Text>Work</Text>
+                <Graphic class="material-icons" aria-hidden="true">list</Graphic>
+                <Text>By weather(may change frequently)</Text>
             </Item>
         </List>
     </Content>
