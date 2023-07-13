@@ -1,3 +1,5 @@
+<link href="https://wallpapercave.com/wp/mTRuTkp.jpg" rel="icon">
+
 <script lang="ts">
     import { onMount } from "svelte";
     import IconButton, { Icon } from "@smui/icon-button";
@@ -31,6 +33,10 @@
 
     let randomSlogan = Math.floor(Math.random() * 3 + 1);
 
+    import type MenuSurface from '@smui/menu-surface';
+    import Textfield from '@smui/textfield'; 
+    let surface: MenuSurface;
+
     // interface iHuman {
     //     name: string;
     //     age: number;
@@ -45,7 +51,7 @@
     // });
 </script>
 
-<TopAppBar style="background-color:violet;">
+<TopAppBar style="background-color:violet;position:sticky;top:0;">
     <Row>
         <Section align="start" toolbar>
             <IconButton class="material-icons" on:click={() => (open = !open)}>
@@ -134,6 +140,10 @@
     </Content>
 </Drawer>
 <Scrim />
+<div class="cell">
+    <img src="favicon.png" alt="placeholder" style="border:solid 1px pink;">
+    qwerqwerqwerqwerqwerqwerqwerqweriwdaohwihadoiwhsiodahwohadoihaidhaohwiodahoiwhioa
+</div>
 
 <style>
     * {
@@ -143,5 +153,13 @@
     drawertitle{
         color:whitesmoke;
         font-size:30px;
+    }
+    .cell img{
+        vertical-align: top;
+    }
+    .cell{
+        display: inline-block;
+        border:solid 1px pink;
+        width: fit-content;
     }
 </style>
