@@ -12,7 +12,6 @@
     </div>
   </MenuSurface>
   <h1 id="budget">Budget set as : Didn't set yet</h1>
-  <img src="https://media.discordapp.net/attachments/881132710356205630/1127584839755903096/20230709_205816.jpg?width=373&height=663">
 </div>
 
 <script lang="ts">
@@ -24,10 +23,4 @@
   let set = 0;
   let name = '';
   let email = '';
-
-  if(set == 1){
-    let budget = document.getElementById("budget")
-    budget.innerHTML = `Budget set as : ${name} ~ ${email}`
-    set = 0
-  }
 </script>
