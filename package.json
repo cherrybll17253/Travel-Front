@@ -43,6 +43,7 @@
 		"@smui/top-app-bar": "^7.0.0-beta.14",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
+		"@types/node": "^20.4.2",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
 		"eslint": "^8.28.0",
@@ -57,6 +58,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"firebase": "^9.23.0"
+		"firebase": "^9.23.0",
+		"mongodb": "^5.7.0"
 	}
 }

@@ -29,11 +29,20 @@
         open = false;
     }
 
-    let randomSlogan = Math.floor(Math.random() * 3 + 1);
+    let randomSlogan = Math.floor(Math.random() * 4 + 1);
 
-    import type MenuSurface from '@smui/menu-surface';
+    import MenuSurface from '@smui/menu-surface';
     import Textfield from '@smui/textfield'; 
-    let surface: MenuSurface;
+    let budgetMenu: MenuSurface;
+    let distanceMenu: MenuSurface;
+
+    let budgetSet = 0;
+    let budgetFrom = '';
+    let budgetTo = '';
+    let distanceSet = 0;
+    let distanceFrom = '';
+    let distanceTo = '';
+    
 </script>
 
 <TopAppBar style="background-color:violet;position:sticky;top:0;">
@@ -55,6 +64,9 @@
             {/if}
             {#if randomSlogan == 3}
                 <h1>"Escape, explore, and create unforgettable memories."</h1>
+            {/if}
+            {#if randomSlogan == 4}
+                <h1>"Freedom is more valuable when you explore somewhere far"</h1>
             {/if}
         </Section>
         <Section align="end" toolbar>
@@ -92,36 +104,77 @@
             <Item
                 href="javascript:void(0)"
                 on:click={() => setActive("Fdistance")}
+                on:click={() => distanceMenu.setOpen(true)}
                 activated={active === "Fdistance"}
             >
-                <Graphic class="material-icons" aria-hidden="true">list</Graphic>
+                <Graphic class="material-icons" aria-hidden="true">KM</Graphic>
                 <Text>By distance</Text>
             </Item>
             <Item
                 href="javascript:void(0)"
                 on:click={() => setActive("Fbudget")}
+                on:click={() => budgetMenu.setOpen(true)}
                 activated={active === "Fbudget"}
             >
-                <Graphic class="material-icons" aria-hidden="true">list</Graphic>
+                <Graphic class="material-icons" aria-hidden="true">₩</Graphic>
                 <Text>By budget</Text>
-            </Item>
-            <Item
-                href="javascript:void(0)"
-                on:click={() => setActive("Fweather")}
-                activated={active === "Fweather"}
-            >
-                <Graphic class="material-icons" aria-hidden="true">list</Graphic>
-                <Text>By weather(may change frequently)</Text>
             </Item>
         </List>
     </Content>
 </Drawer>
 <Scrim />
+<MenuSurface bind:this={budgetMenu} anchorCorner="BOTTOM_LEFT">
+    <div
+        style="margin: 1em; display: flex; flex-direction: column; align-items: flex-end;"
+    >
+        <Textfield bind:value={budgetFrom} label="From(₩) : " />
+        <Textfield bind:value={budgetTo} label="To(₩) : "/>
+        <Button style="margin-top: 1em;" on:click={() => {budgetMenu.setOpen(false); console.log(`${budgetFrom}₩ ~ ${budgetTo}₩`); budgetSet = 1}}>
+            Submit
+        </Button>
+    </div>
+</MenuSurface>
+<MenuSurface bind:this={distanceMenu} anchorCorner="BOTTOM_LEFT">
+    <div
+        style="margin: 1em; display: flex; flex-direction: column; align-items: flex-end;"
+    >
+        <Textfield bind:value={distanceFrom} label="From(Km) : " />
+        <Textfield bind:value={distanceTo} label="To(Km) : "/>
+        <Button style="margin-top: 1em;" on:click={() => {distanceMenu.setOpen(false); console.log(`${distanceFrom}Km ~ ${distanceTo}Km`); distanceSet = 1}}>
+            Submit
+        </Button>
+    </div>
+</MenuSurface>
+<div class="filtercontainer">
+    {#if budgetSet == 1 || distanceSet == 1}
+        <h5>Filters active : </h5>
+    {/if}
+    {#if distanceSet == 1}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+        <h6 on:click={() => distanceSet = 0}>distance {distanceFrom}Km ~ {distanceTo}Km</h6>
+    {/if}
+    {#if budgetSet == 1}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+        <h6 on:click={() => budgetSet = 0}>budget {budgetFrom}₩ ~ {budgetTo}₩</h6>
+    {/if}
+</div>
 <slot />
 
 <style>
     drawertitle{
         color:whitesmoke;
         font-size:30px;
+    }
+    .filtercontainer h6{
+        display:inline-block;
+        border:1px solid;
+        width:100px;
+        border-radius: 20%;
+    }
+    .filtercontainer h5{
+        display:inline-block;
+        color:burlywood;
     }
 </style>

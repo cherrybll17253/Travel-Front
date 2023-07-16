@@ -5,7 +5,7 @@
       style="margin: 1em; display: flex; flex-direction: column; align-items: flex-end;"
     >
       <Textfield bind:value={name} label="From : " />
-      <Textfield bind:value={email} label="To : " type="email" />
+      <Textfield bind:value={email} label="To : "/>
       <Button style="margin-top: 1em;" on:click={() => {surface.setOpen(false); console.log(`${name}, ${email}`); set = 1}}>
         Submit
       </Button>
