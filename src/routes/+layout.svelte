@@ -33,8 +33,10 @@
 
     import MenuSurface from '@smui/menu-surface';
     import Textfield from '@smui/textfield'; 
+    import Select, { Option } from '@smui/select';
     let budgetMenu: MenuSurface;
     let distanceMenu: MenuSurface;
+    let uploadMenu: MenuSurface;
 
     let budgetSet = 0;
     let budgetFrom = '';
@@ -42,7 +44,18 @@
     let distanceSet = 0;
     let distanceFrom = '';
     let distanceTo = '';
-    
+
+    let uploadText = '';
+    let uploadImageLink = '';
+    let uploadSortFirst = '';
+    let uploadSortSecond = '';
+    let uploadDistance = '';
+    let uploadBudget = 0;
+
+    let sorts = ["Healing", "Activity", "Food"]
+    let healingSort = ["With_Nature", "With_Nice_View", "Any"]
+    let activitySort = ["Leisure_Sports", "Extreme_Sports", "Any"]
+    let foodSort = ["Korean_Dish", "Non_Korean_Dish", "Any"]
 </script>
 
 <TopAppBar style="background-color:violet;position:sticky;top:0;">
@@ -93,6 +106,7 @@
             <Item
                 href="javascript:void(0)"
                 on:click={() => setActive("upload")}
+                on:click={() => uploadMenu.setOpen(true)}
                 activated={active === "upload"}
             >
                 <Graphic class="material-icons" aria-hidden="true">upload</Graphic>
@@ -123,7 +137,7 @@
     </Content>
 </Drawer>
 <Scrim />
-<MenuSurface bind:this={budgetMenu} anchorCorner="BOTTOM_LEFT">
+<MenuSurface bind:this={budgetMenu} anchorCorner="BOTTOM_RIGHT">
     <div
         style="margin: 1em; display: flex; flex-direction: column; align-items: flex-end;"
     >
@@ -141,6 +155,60 @@
         <Textfield bind:value={distanceFrom} label="From(Km) : " />
         <Textfield bind:value={distanceTo} label="To(Km) : "/>
         <Button style="margin-top: 1em;" on:click={() => {distanceMenu.setOpen(false); console.log(`${distanceFrom}Km ~ ${distanceTo}Km`); distanceSet = 1}}>
+            Submit
+        </Button>
+    </div>
+</MenuSurface>
+<MenuSurface bind:this={uploadMenu} anchorCorner="BOTTOM_LEFT">
+    <div
+        style="width:800px; height:800px;"
+    >
+        <Textfield bind:value={uploadText} label="Write a brief description : " style="width:100%;" input$maxlength="300"/><br>
+        <Textfield bind:value={uploadImageLink} label="Image Link : " style="width:100%;"/>
+        <br>
+        <img src={uploadImageLink} height="300" width="300">
+        <br>
+        <Select bind:value={uploadSortFirst} label="Select Menu">
+            {#each sorts as sort}
+                <Option value={sort}>{sort}</Option>
+            {/each}
+        </Select>
+        {#if uploadSortFirst == "Healing"}
+                <Select bind:value={uploadSortSecond} label="Select Menu">
+                    {#each healingSort as hsort}
+                        <Option value={hsort}>{hsort}</Option>
+                    {/each}
+                </Select>
+            {/if}
+            {#if uploadSortFirst == "Activity"}
+                <Select bind:value={uploadSortSecond} label="Select Menu">
+                    {#each activitySort as asort}
+                        <Option value={asort}>{asort}</Option>
+                    {/each}
+                </Select>
+            {/if}
+            {#if uploadSortFirst == "Food"}
+                <Select bind:value={uploadSortSecond} label="Select Menu">
+                    {#each foodSort as fsort}
+                        <Option value={fsort}>{fsort}</Option>
+                    {/each}
+                </Select>
+            {/if}
+        <Button 
+            style="margin-top: 1em;" 
+            on:click={() => {
+                uploadMenu.setOpen(false); 
+                console.log(uploadText, uploadImageLink, uploadSortFirst, uploadSortSecond, uploadDistance, uploadBudget);
+            }}
+            on:click={() => {
+                uploadText = '';
+                uploadImageLink = '';
+                uploadSortFirst = '';
+                uploadSortSecond = '';
+                uploadDistance = '';
+                uploadBudget = 0;
+            }}
+        >
             Submit
         </Button>
     </div>
