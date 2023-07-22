@@ -238,7 +238,7 @@
     .filtercontainer h6{
         display:inline-block;
         border:1px solid;
-        width:100px;
+        width:150px;
         border-radius: 20%;
     }
     .filtercontainer h5{

@@ -1,4 +1,26 @@
 <script lang="ts">
+    //const { MongoClient } = require('mongodb');
+    // const url = 'mongodb+srv://anothercbt:jian0806@cluster0.m5doiuj.mongodb.net/?retryWrites=true&w=majority';
+    // const client = new MongoClient(url);
+    // const dbName = 'DBtest';
+
+    // async function main() {
+    //     await client.connect();
+    //     console.log('good connection with server');
+    //     const db = client.db(dbName);
+    //     const collection = db.collection('user');
+    //     for await(let i of collection.find({ "gen" : "male" })
+    //     ){
+    //         console.log(i)    
+    //     }
+    //     return 'done.';
+    // }
+
+    // main()
+    // .then(console.log)
+    // .catch(console.error)
+    // .finally(() => client.close());
+    
     import { onMount } from "svelte";
 
     let data:any[] = [];

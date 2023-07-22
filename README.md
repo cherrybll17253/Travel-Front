@@ -7,8 +7,8 @@ erDiagram
         string interests
         string userid
     }
-    User ||--o{ POSTED : interests
-    POSTED {
+    User ||--o{ SUGGESTED : interests
+    SUGGESTED {
         string title
         string interests PK
         uuid postid
@@ -16,7 +16,7 @@ erDiagram
     POST {
         uuid postid PK
         string title
-        string body
+        string sort
         uuid userid PK
     }
 ```
