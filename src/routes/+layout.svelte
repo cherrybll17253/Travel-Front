@@ -37,13 +37,14 @@
     let budgetMenu: MenuSurface;
     let distanceMenu: MenuSurface;
     let uploadMenu: MenuSurface;
+    let searchMenu: MenuSurface;
 
     let budgetSet = 0;
-    let budgetFrom = '';
-    let budgetTo = '';
+    let budgetFrom = 0;
+    let budgetTo = 0;
     let distanceSet = 0;
-    let distanceFrom = '';
-    let distanceTo = '';
+    let distanceFrom = 0;
+    let distanceTo = 0;
 
     let uploadText = '';
     let uploadImageLink = '';
