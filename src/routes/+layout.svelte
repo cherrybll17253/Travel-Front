@@ -57,6 +57,8 @@
     let healingSort = ["With_Nature", "With_Nice_View", "Any"]
     let activitySort = ["Leisure_Sports", "Extreme_Sports", "Any"]
     let foodSort = ["Korean_Dish", "Non_Korean_Dish", "Any"]
+
+    let searchText = '';
 </script>
 
 <TopAppBar style="background-color:violet;position:sticky;top:0;">
@@ -84,7 +86,12 @@
             {/if}
         </Section>
         <Section align="end" toolbar>
-            <IconButton class="material-icons">search</IconButton>
+            <IconButton 
+            class="material-icons"
+            on:click={() => searchMenu.setOpen(true)}
+            >
+                search
+            </IconButton>
             <IconButton class="material-icons">lock</IconButton>
         </Section>
     </Row>
@@ -208,6 +215,24 @@
                 uploadSortSecond = '';
                 uploadDistance = '';
                 uploadBudget = 0;
+            }}
+        >
+            Submit
+        </Button>
+    </div>
+</MenuSurface>
+<MenuSurface bind:this={searchMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;">
+    <div
+        style="width:100%; position:relative;"
+    >
+        <Textfield bind:value={searchText} label="Looking for : " />
+        <br>
+        <Button 
+            style="margin-top: 1em;" 
+            on:click={() => {
+                searchMenu.setOpen(false); 
+                console.log(`Searched : ${searchText}`);
+                searchText = '';
             }}
         >
             Submit
