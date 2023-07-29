@@ -1,15 +1,21 @@
-import type { PageServerLoad } from "./$types"
+import type { Collection } from 'mongodb';
+import db from '$lib/db'
+import type { PageServerLoad } from './$types';
+import type { Post } from './type';
 
-interface iPlaceHolder{
-    userId: number,
-    id: number,
-    title: string,
-    body: string
+
+
+async function main() {
+    const collection: Collection<Post> = db.collection('post'); 
+    const cursor = collection.find({});
+    const arr = (await cursor.toArray()).map(v => ({...v, _id:v._id.toString("hex")}))
+    return arr
 }
 
 export const load:PageServerLoad = async () => {
-    const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+    const posts = await main()
+    console.log(posts)
     return {
-        placeholder:(await res.json()) as iPlaceHolder[]
+        posts
     }
 }
