@@ -1,36 +1,17 @@
 <script lang="ts">
-    //const { MongoClient } = require('mongodb');
-    // const url = 'mongodb+srv://anothercbt:jian0806@cluster0.m5doiuj.mongodb.net/?retryWrites=true&w=majority';
-    // const client = new MongoClient(url);
-    // const dbName = 'DBtest';
-
-    // async function main() {
-    //     await client.connect();
-    //     console.log('good connection with server');
-    //     const db = client.db(dbName);
-    //     const collection = db.collection('user');
-    //     for await(let i of collection.find({ "gen" : "male" })
-    //     ){
-    //         console.log(i)    
-    //     }
-    //     return 'done.';
-    // }
-
-    // main()
-    // .then(console.log)
-    // .catch(console.error)
-    // .finally(() => client.close());
-    
     import { onMount } from "svelte";
-
-    let data:any[] = [];
+    import type { PageServerData } from "./$types";
+    import { Collection } from 'mongodb'
+    export let data:PageServerData;
     onMount(() => {
-        data = Array(21);
+        console.log(data)
     })
+
+    
 </script>
 <body>
-    {#each data as _}
-        <div class="cell">
+    {#each info as item}
+        <div class="cell" id={"cell"}>
             <img src="data:image/jpeg;base64,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" alt="placeholder">
             This destination is a waterfall of great wonders! My personal favorite is to walk on the side of the cliff and watch the waterfall
         </div>
