@@ -22,7 +22,7 @@
     } from "@smui/list";
 
     let open = false;
-    let active = "Inbox";
+    let active = "";
 
     function setActive(value: string) {
         active = value;
@@ -46,12 +46,11 @@
     let distanceFrom = 0;
     let distanceTo = 0;
 
+    let uploadTitle = '';
     let uploadText = '';
     let uploadImageLink = '';
     let uploadSortFirst = '';
     let uploadSortSecond = '';
-    let uploadDistance = '';
-    let uploadBudget = 0;
 
     let sorts = ["Healing", "Activity", "Food"]
     let healingSort = ["With_Nature", "With_Nice_View", "Any"]
@@ -149,6 +148,12 @@
     <div
         style="margin: 1em; display: flex; flex-direction: column; align-items: flex-end;"
     >
+        <IconButton 
+            class="material-icon" 
+            on:click={() => {
+                budgetMenu.setOpen(false); 
+            }}
+        >X</IconButton>
         <Textfield bind:value={budgetFrom} label="From(₩) : " />
         <Textfield bind:value={budgetTo} label="To(₩) : "/>
         <Button style="margin-top: 1em;" on:click={() => {budgetMenu.setOpen(false); console.log(`${budgetFrom}₩ ~ ${budgetTo}₩`); budgetSet = 1}}>
@@ -160,6 +165,12 @@
     <div
         style="margin: 1em; display: flex; flex-direction: column; align-items: flex-end;"
     >
+        <IconButton 
+            class="material-icon" 
+            on:click={() => {
+                distanceMenu.setOpen(false); 
+            }}
+        >X</IconButton>
         <Textfield bind:value={distanceFrom} label="From(Km) : " />
         <Textfield bind:value={distanceTo} label="To(Km) : "/>
         <Button style="margin-top: 1em;" on:click={() => {distanceMenu.setOpen(false); console.log(`${distanceFrom}Km ~ ${distanceTo}Km`); distanceSet = 1}}>
@@ -169,12 +180,20 @@
 </MenuSurface>
 <MenuSurface bind:this={uploadMenu} anchorCorner="BOTTOM_LEFT">
     <div
-        style="width:800px; height:800px;"
+        style="width:500px; height:550px; overflow:hidden;"
     >
+        <IconButton 
+            class="material-icon" 
+            style="left:90%;"
+            on:click={() => {
+                uploadMenu.setOpen(false); 
+            }}
+        >X</IconButton>
+        <Textfield bind:value={uploadTitle} label="Title : " style="width:100%;" input$maxlength="30"/><br>
         <Textfield bind:value={uploadText} label="Write a brief description : " style="width:100%;" input$maxlength="300"/><br>
         <Textfield bind:value={uploadImageLink} label="Image Link : " style="width:100%;"/>
         <br>
-        <img src={uploadImageLink} height="300" width="300">
+        <img src={uploadImageLink} height="300" width="300" alt="The image linked">
         <br>
         <Select bind:value={uploadSortFirst} label="Select Menu">
             {#each sorts as sort}
@@ -205,27 +224,37 @@
         <Button 
             style="margin-top: 1em;" 
             on:click={() => {
-                uploadMenu.setOpen(false); 
-                console.log(uploadText, uploadImageLink, uploadSortFirst, uploadSortSecond, uploadDistance, uploadBudget);
+                if( uploadTitle.length > 3
+                &&  uploadText.length > 10
+                &&  uploadImageLink.length > 10
+                &&  uploadSortFirst != ""
+                &&  uploadSortSecond != ""
+                )   
+                    uploadMenu.setOpen(false); 
             }}
             on:click={() => {
-                uploadText = '';
-                uploadImageLink = '';
-                uploadSortFirst = '';
-                uploadSortSecond = '';
-                uploadDistance = '';
-                uploadBudget = 0;
+                
             }}
         >
             Submit
         </Button>
+
     </div>
 </MenuSurface>
+
 <MenuSurface bind:this={searchMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;">
     <div
-        style="width:100%; position:relative;"
+        style="width:100%; position:relative; height:160px;"
     >
-        <Textfield bind:value={searchText} label="Looking for : " />
+        <IconButton 
+            class="material-icon" 
+            style="left:80%;"
+            on:click={() => {
+                searchMenu.setOpen(false); 
+            }}
+        >X</IconButton>
+        <br>
+        <Textfield bind:value={searchText} label="Looking for : " style="width:100%;"/>
         <br>
         <Button 
             style="margin-top: 1em;" 
