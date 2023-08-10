@@ -1,12 +1,13 @@
 import type { Collection } from 'mongodb';
 import db from '$lib/db'
-import uploadTitle from './+layout.svelte'
-import uploadText from './+layout.svelte'
-import uploadImageLink from './+layout.svelte'
-import uploadSortFirst from './+layout.svelte'
-import uploadSortSecond from './+layout.svelte'
 import type { PageServerLoad } from './$types';
-import type { Post } from './type';
+import type { Post } from './type'
+
+let uploadTitle = ''
+let uploadText = ''
+let uploadImageLink = ''
+let uploadSortFirst = ''
+let uploadSortSecond = ''
 
 async function main() {
     const collection: Collection<Post> = db.collection('post'); 
@@ -16,7 +17,6 @@ async function main() {
 }
 
 export const load:PageServerLoad = async () => {
-    console.log(uploadTitle)
     const posts = await main()
     
     db.collection("post").insertOne(
@@ -24,7 +24,7 @@ export const load:PageServerLoad = async () => {
             "title" : uploadTitle, 
             "text" : uploadText, 
             "imageLink" : uploadImageLink, 
-            "Sort" : `${uploadSortFirst}/${uploadSortSecond}`
+            "sort" : `${uploadSortFirst}/${uploadSortSecond}`
         }
     )
     return {

@@ -47,12 +47,6 @@
     let distanceFrom = 0;
     let distanceTo = 0;
 
-    let uploadTitle = '';
-    let uploadText = '';
-    let uploadImageLink = '';
-    let uploadSortFirst = '';
-    let uploadSortSecond = '';
-
     let sorts = ["Healing", "Activity", "Food"]
     let healingSort = ["With_Nature", "With_Nice_View", "Any"]
     let activitySort = ["Leisure_Sports", "Extreme_Sports", "Any"]
@@ -62,6 +56,12 @@
 
     let signUpName = "";
     let signUpPassword = "";
+
+    let uploadTitle = '';
+    let uploadText = '';
+    let uploadImageLink = '';
+    let uploadSortFirst = '';
+    let uploadSortSecond = '';
 </script>
 
 <TopAppBar style="background-color:violet;position:sticky;top:0;">
