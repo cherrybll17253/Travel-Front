@@ -38,6 +38,7 @@
     let distanceMenu: MenuSurface;
     let uploadMenu: MenuSurface;
     let searchMenu: MenuSurface;
+    let signUpMenu: MenuSurface;
 
     let budgetSet = 0;
     let budgetFrom = 0;
@@ -59,6 +60,9 @@
     let foodSort = ["Korean_Dish", "Non_Korean_Dish", "Any"]
 
     let searchText = '';
+
+    let signUpName = "";
+    let signUpPassword = "";
 </script>
 
 <TopAppBar style="background-color:violet;position:sticky;top:0;">
@@ -92,10 +96,24 @@
             >
                 search
             </IconButton>
-            <IconButton class="material-icons">lock</IconButton>
+            <IconButton 
+            class="material-icons"
+            on:click={() => signUpMenu.setOpen(true)}
+            >lock</IconButton>
         </Section>
     </Row>
 </TopAppBar>
+<MenuSurface bind:this={signUpMenu} anchorCorner="BOTTOM_RIGHT">
+    <div
+        style="margin: 1em; display: flex; flex-direction: column; align-items: flex-end;"
+    >
+        <Textfield bind:value={signUpName} label="Username : " />
+        <Textfield bind:value={signUpPassword} label="Password "/>
+        <Button style="margin-top: 1em;" on:click={() => {signUpMenu.setOpen(false); console.log(`${signUpName} ${signUpPassword}`);}}>
+            Submit
+        </Button>
+    </div>
+</MenuSurface>
 <Drawer variant="modal" bind:open style="background-color:brown; width:40%;">
     <Header>
         <br><br><br><drawertitle><sub>UD<sub /><sup>GA<sup>JI</sup></sup></sub></drawertitle><Title />

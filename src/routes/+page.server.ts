@@ -13,3 +13,4 @@ export const load:PageServerLoad = async () => {
         placeholder:(await res.json()) as iPlaceHolder[]
     }
 }
+
