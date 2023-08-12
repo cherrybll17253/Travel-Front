@@ -1,10 +1,5 @@
 import type { Collection } from 'mongodb';
 import db from '$lib/db'
-import uploadTitle from './+layout.svelte'
-import uploadText from './+layout.svelte'
-import uploadImageLink from './+layout.svelte'
-import uploadSortFirst from './+layout.svelte'
-import uploadSortSecond from './+layout.svelte'
 import type { PageServerLoad } from './$types';
 import type { Post } from './type';
 

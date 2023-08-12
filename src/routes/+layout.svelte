@@ -283,12 +283,12 @@
         <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
         <h6 on:click={() => budgetSet = 0}>budget {budgetFrom}₩ ~ {budgetTo}₩</h6>
     {/if}
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     {#if searchText != "" && searchSet == 1}
-        <br>
         <h5>Searching for : </h5>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-        <h6 on:click={() => searchText = ""}>{searchText}</h6>
+        <h6 on:click={() => {searchText = ""; searchSet = 0}}>{searchText}</h6>
     {/if}
 </div>
 <slot />
@@ -300,11 +300,12 @@
     }
     .filtercontainer h6{
         display:inline-block;
-        border:1px solid;
-        width:150px;
+        border:1px solid white;
+        width:fit-content;
         border-radius: 20%;
     }
     .filtercontainer h5{
+        margin-left:50px;   
         display:inline-block;
         color:burlywood;
     }
