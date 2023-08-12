@@ -1,6 +1,6 @@
 import type { Collection } from 'mongodb';
 import db from '$lib/db'
-// import { uploadTitle } from './+layout.svelte'
+import uploadTitle from './+layout.svelte'
 import uploadText from './+layout.svelte'
 import uploadImageLink from './+layout.svelte'
 import uploadSortFirst from './+layout.svelte'
@@ -15,18 +15,18 @@ async function main() {
     return arr
 }
 
-// export const load:PageServerLoad = async () => {
-//     const posts = await main()
+export const load:PageServerLoad = async () => {
+    const posts = await main()
     
-//     db.collection("post").insertOne(
-//         {
-//              "title" : uploadTitle, 
-//              "text" : uploadText, 
-//              "imageLink" : uploadImageLink, 
-//              "Sort" : `${uploadSortFirst}/${uploadSortSecond}`
-//         }
-//     )
-//     return {
-//         posts
-//     }
-// }
+    db.collection("post").insertOne(
+        {
+             "title" : uploadTitle, 
+             "text" : uploadText, 
+             "imageLink" : uploadImageLink, 
+             "Sort" : `${uploadSortFirst}/${uploadSortSecond}`
+        }
+    )
+    return {
+        posts
+    }
+}
