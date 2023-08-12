@@ -235,14 +235,7 @@
                 } 
             }}
             on:click={() => {
-                // db.collection("post").insertOne(
-                //     {
-                //         "title" : uploadTitle, 
-                //         // "text" : uploadText, 
-                //         // "imageLink" : uploadImageLink, 
-                //         // "Sort" : `${uploadSortFirst}/${uploadSortSecond}
-                //     }
-                // )
+                
             }}
         >
             Submit
