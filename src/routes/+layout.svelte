@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount } from "svelte";
     import IconButton, { Icon } from "@smui/icon-button";
     import type { PageServerData } from "./$types";
     export let data: PageServerData;
@@ -58,6 +57,7 @@
     let foodSort = ["Korean_Dish", "Non_Korean_Dish", "Any"]
 
     let searchText = '';
+    let searchSet = 0;
 </script>
 
 <TopAppBar style="background-color:violet;position:sticky;top:0;">
@@ -95,7 +95,7 @@
         </Section>
     </Row>
 </TopAppBar>
-<Drawer variant="modal" bind:open style="background-color:brown; width:40%;">
+<Drawer variant="modal" bind:open style="background-color:brown; width:40%; height:100%;">
     <Header>
         <br><br><br><drawertitle><sub>UD<sub /><sup>GA<sup>JI</sup></sup></sub></drawertitle><Title />
         <Subtitle>Enjoy our services, adventurer!</Subtitle>
@@ -144,6 +144,7 @@
     </Content>
 </Drawer>
 <Scrim />
+
 <MenuSurface bind:this={budgetMenu} anchorCorner="BOTTOM_RIGHT">
     <div
         style="margin: 1em; display: flex; flex-direction: column; align-items: flex-end;"
@@ -224,16 +225,24 @@
         <Button 
             style="margin-top: 1em;" 
             on:click={() => {
-                if( uploadTitle.length > 3
-                &&  uploadText.length > 10
-                &&  uploadImageLink.length > 10
+                if( uploadTitle.length > 1
+                &&  uploadText.length > 1
+                &&  uploadImageLink.length > 1
                 &&  uploadSortFirst != ""
                 &&  uploadSortSecond != ""
-                )   
-                    uploadMenu.setOpen(false); 
+                )   {
+                    uploadMenu.setOpen(false);
+                } 
             }}
             on:click={() => {
-                
+                // db.collection("post").insertOne(
+                //     {
+                //         "title" : uploadTitle, 
+                //         // "text" : uploadText, 
+                //         // "imageLink" : uploadImageLink, 
+                //         // "Sort" : `${uploadSortFirst}/${uploadSortSecond}
+                //     }
+                // )
             }}
         >
             Submit
@@ -241,7 +250,6 @@
 
     </div>
 </MenuSurface>
-
 <MenuSurface bind:this={searchMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;">
     <div
         style="width:100%; position:relative; height:160px;"
@@ -260,8 +268,8 @@
             style="margin-top: 1em;" 
             on:click={() => {
                 searchMenu.setOpen(false); 
+                searchSet = 1
                 console.log(`Searched : ${searchText}`);
-                searchText = '';
             }}
         >
             Submit
@@ -281,6 +289,13 @@
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
         <h6 on:click={() => budgetSet = 0}>budget {budgetFrom}₩ ~ {budgetTo}₩</h6>
+    {/if}
+    {#if searchText != "" && searchSet == 1}
+        <br>
+        <h5>Searching for : </h5>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+        <h6 on:click={() => searchText = ""}>{searchText}</h6>
     {/if}
 </div>
 <slot />
