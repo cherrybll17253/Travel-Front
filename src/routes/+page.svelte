@@ -8,12 +8,15 @@
 
     
 </script>
-{#each data.found as found}
-    <div class="cell" id="cell">
-        <img src={found.uploadImageLink} alt="placeholder">
-        {found.uploadText}
-    </div>
-{/each}
+<div class="container">
+    {#each data.found as found}
+        <div class="cell" id="cell">
+            <img src={found.uploadImageLink} alt="placeholder">
+            <h1><u>{found.uploadTitle}</u></h1>
+            {found.uploadText}
+        </div>
+    {/each}
+</div>
 <style>
     * {
         margin: 0;
@@ -33,5 +36,8 @@
         height:fit-content;
         background-color: gray;
         text-align: center;
+    }
+    .container {
+
     }
 </style>
