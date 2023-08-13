@@ -33,6 +33,7 @@
     import MenuSurface from '@smui/menu-surface';
     import Textfield from '@smui/textfield'; 
     import Select, { Option } from '@smui/select';
+    import { goto } from "$app/navigation";
     let budgetMenu: MenuSurface;
     let distanceMenu: MenuSurface;
     let uploadMenu: MenuSurface;
@@ -44,12 +45,13 @@
     let distanceSet = 0;
     let distanceFrom = 0;
     let distanceTo = 0;
-
-    let uploadTitle = '';
-    let uploadText = '';
-    let uploadImageLink = '';
-    let uploadSortFirst = '';
-    let uploadSortSecond = '';
+    const obj = {
+        uploadTitle:'',
+        uploadText:'',
+        uploadImageLink:'',
+        uploadSortFirst:'',
+        uploadSortSecond:'',
+    };
 
     let sorts = ["Healing", "Activity", "Food"]
     let healingSort = ["With_Nature", "With_Nice_View", "Any"]
@@ -58,6 +60,17 @@
 
     let searchText = '';
     let searchSet = 0;
+    async function uploadDB(){
+        const res = await fetch('/api', {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(obj)
+        });
+        await res.json();
+        location.reload();
+    }
 </script>
 
 <TopAppBar style="background-color:violet;position:sticky;top:0;">
@@ -190,33 +203,33 @@
                 uploadMenu.setOpen(false); 
             }}
         >X</IconButton>
-        <Textfield bind:value={uploadTitle} label="Title : " style="width:100%;" input$maxlength="30"/><br>
-        <Textfield bind:value={uploadText} label="Write a brief description : " style="width:100%;" input$maxlength="300"/><br>
-        <Textfield bind:value={uploadImageLink} label="Image Link : " style="width:100%;"/>
+        <Textfield bind:value={obj.uploadTitle} label="Title : " style="width:100%;" input$maxlength={30} /><br>
+        <Textfield bind:value={obj.uploadText} label="Write a brief description : " style="width:100%;" input$maxlength={300} /><br>
+        <Textfield bind:value={obj.uploadImageLink} label="Image Link : " style="width:100%;"/>
         <br>
-        <img src={uploadImageLink} height="300" width="300" alt="The image linked">
+        <img src={obj.uploadImageLink} height="300" width="300" alt="The image linked">
         <br>
-        <Select bind:value={uploadSortFirst} label="Select Menu">
+        <Select bind:value={obj.uploadSortFirst} label="Select Menu">
             {#each sorts as sort}
                 <Option value={sort}>{sort}</Option>
             {/each}
         </Select>
-        {#if uploadSortFirst == "Healing"}
-                <Select bind:value={uploadSortSecond} label="Select Menu">
+        {#if obj.uploadSortFirst == "Healing"}
+                <Select bind:value={obj.uploadSortSecond} label="Select Menu">
                     {#each healingSort as hsort}
                         <Option value={hsort}>{hsort}</Option>
                     {/each}
                 </Select>
             {/if}
-            {#if uploadSortFirst == "Activity"}
-                <Select bind:value={uploadSortSecond} label="Select Menu">
+            {#if obj.uploadSortFirst == "Activity"}
+                <Select bind:value={obj.uploadSortSecond} label="Select Menu">
                     {#each activitySort as asort}
                         <Option value={asort}>{asort}</Option>
                     {/each}
                 </Select>
             {/if}
-            {#if uploadSortFirst == "Food"}
-                <Select bind:value={uploadSortSecond} label="Select Menu">
+            {#if obj.uploadSortFirst == "Food"}
+                <Select bind:value={obj.uploadSortSecond} label="Select Menu">
                     {#each foodSort as fsort}
                         <Option value={fsort}>{fsort}</Option>
                     {/each}
@@ -224,18 +237,16 @@
             {/if}
         <Button 
             style="margin-top: 1em;" 
-            on:click={() => {
-                if( uploadTitle.length > 1
-                &&  uploadText.length > 1
-                &&  uploadImageLink.length > 1
-                &&  uploadSortFirst != ""
-                &&  uploadSortSecond != ""
+            on:click={async () => {
+                if( obj.uploadTitle.length > 1
+                &&  obj.uploadText.length > 1
+                &&  obj.uploadImageLink.length > 1
+                &&  obj.uploadSortFirst != ""
+                &&  obj.uploadSortSecond != ""
                 )   {
                     uploadMenu.setOpen(false);
+                    await uploadDB();
                 } 
-            }}
-            on:click={() => {
-                
             }}
         >
             Submit
@@ -283,7 +294,6 @@
         <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
         <h6 on:click={() => budgetSet = 0}>budget {budgetFrom}₩ ~ {budgetTo}₩</h6>
     {/if}
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     {#if searchText != "" && searchSet == 1}
         <h5>Searching for : </h5>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
