@@ -7,15 +7,13 @@
     })
 
 </script>
-<div class="container">
-    {#each data.found as found}
-        <div class="cell" id="cell">
-            <img src={found.uploadImageLink} alt="placeholder">
-            <h1><u>{found.uploadTitle}</u></h1>
+{#each data.found as found}
+    <div class="cell" id="cell">
+        <img src={found.uploadImageLink} alt="placeholder">
+           <h1><u>{found.uploadTitle}</u></h1>
             {found.uploadText}
-        </div>
-    {/each}
-</div>
+    </div>
+{/each}
 <style>
     * {
         margin: 0;
