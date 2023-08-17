@@ -6,7 +6,6 @@
         console.log(data)
     })
 
-    
 </script>
 <div class="container">
     {#each data.found as found}
@@ -36,8 +35,5 @@
         height:fit-content;
         background-color: gray;
         text-align: center;
-    }
-    .container {
-
     }
 </style>
