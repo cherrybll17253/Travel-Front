@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import type { PageServerLoad } from "./$types";
 import db from '$lib/db';
 import type { Collection } from "mongodb";
@@ -14,4 +12,3 @@ export const load = async () => {
 
 
 
->>>>>>> 2d791853f2b52a1ce03bc9d005bfdbe983c6ef1a
