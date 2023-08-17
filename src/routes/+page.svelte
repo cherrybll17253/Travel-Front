@@ -6,7 +6,6 @@
         console.log(data)
     })
 
-    
 </script>
 
 <style>
@@ -27,8 +26,5 @@
         height:fit-content;
         background-color: gray;
         text-align: center;
-    }
-    .container {
-
     }
 </style>
