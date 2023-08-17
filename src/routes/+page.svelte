@@ -22,7 +22,6 @@
     .cell img{
         float:left;
         border:solid 1px pink;
-        width:100px;
         height:150px;
     }
     .cell{

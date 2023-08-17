@@ -38,6 +38,7 @@
     let distanceMenu: MenuSurface;
     let uploadMenu: MenuSurface;
     let searchMenu: MenuSurface;
+    let signUpMenu: MenuSurface;
 
     let budgetSet = 0;
     let budgetFrom = 0;
@@ -104,11 +105,29 @@
             >
                 search
             </IconButton>
-            <IconButton class="material-icons">lock</IconButton>
+            <IconButton 
+            class="material-icons"
+            on:click={() => signUpMenu.setOpen(true)}
+            >lock</IconButton>
         </Section>
     </Row>
 </TopAppBar>
+<<<<<<< HEAD
+<MenuSurface bind:this={signUpMenu} anchorCorner="BOTTOM_RIGHT">
+    <div
+        style="margin: 1em; display: flex; flex-direction: column; align-items: flex-end;"
+    >
+        <Textfield bind:value={signUpName} label="Username : " />
+        <Textfield bind:value={signUpPassword} label="Password "/>
+        <Button style="margin-top: 1em;" on:click={() => {signUpMenu.setOpen(false); console.log(`${signUpName} ${signUpPassword}`);}}>
+            Submit
+        </Button>
+    </div>
+</MenuSurface>
+<Drawer variant="modal" bind:open style="background-color:brown; width:40%;">
+=======
 <Drawer variant="modal" bind:open style="background-color:brown; width:40%; height:100%;">
+>>>>>>> 558089efb5866a9ae398ff91fdc7ddb3c730eb78
     <Header>
         <br><br><br><drawertitle><sub>UD<sub /><sup>GA<sup>JI</sup></sup></sub></drawertitle><Title />
         <Subtitle>Enjoy our services, adventurer!</Subtitle>
