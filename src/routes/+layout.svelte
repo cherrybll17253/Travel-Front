@@ -72,6 +72,76 @@
         await res.json();
         location.reload();
     }
+    import { onMount } from 'svelte'
+    import {
+        GoogleAuthProvider,
+        browserSessionPersistence,
+        getAuth,
+        onAuthStateChanged,
+        setPersistence,
+        signInWithPopup
+    } from 'firebase/auth';
+    import type { User } from 'firebase/auth'
+    import {
+        getApps,
+        initializeApp,
+        FirebaseError,
+
+        type FirebaseOptions
+
+    } from 'firebase/app';
+
+    import type { PageData } from './$types';
+    const firebaseConfig = data.firebaseConfig;
+    let curUser:User|null = null;
+    onMount(() => {
+        if(getApps().length === 0){
+            initializeApp(firebaseConfig);
+        }        
+        const auth = getAuth();
+        const un = onAuthStateChanged(auth, user => {
+            curUser = user;
+        })
+        return () => {un()};
+    })
+
+    const login = async (firebaseConfig:FirebaseOptions) => {
+        if(getApps().length === 0){
+            initializeApp(firebaseConfig);
+        }
+        const provider = new GoogleAuthProvider();
+        const auth = getAuth();
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly'); // Google Provider's Code(Google API scope)
+        try{
+            await setPersistence(auth, browserSessionPersistence); //Auth 정보를 저장할지 말지
+            const result = await signInWithPopup(auth, provider); 
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential?.accessToken;
+            const user = result.user;
+            return { token , user};
+        } catch(error){
+            if(error instanceof FirebaseError){
+                const code = error.code;
+                const message = error.message;
+                // The email of the user's account used.
+                const email = error.customData?.email;
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+                console.log({
+                    code, message, email, credential
+                });
+            } else {
+                console.log(error);
+            }
+        }
+    }
+    const logout = async(firebaseConfig:FirebaseOptions) => {
+        if(getApps().length === 0){
+            initializeApp(firebaseConfig);
+        }
+        const auth = getAuth()
+        await auth.signOut()
+    }
 </script>
 
 <TopAppBar style="background-color:violet;position:sticky;top:0;">
@@ -107,27 +177,12 @@
             </IconButton>
             <IconButton 
             class="material-icons"
-            on:click={() => signUpMenu.setOpen(true)}
+            on:click={async () => await login(firebaseConfig)}
             >lock</IconButton>
         </Section>
     </Row>
 </TopAppBar>
-<<<<<<< HEAD
-<MenuSurface bind:this={signUpMenu} anchorCorner="BOTTOM_RIGHT">
-    <div
-        style="margin: 1em; display: flex; flex-direction: column; align-items: flex-end;"
-    >
-        <Textfield bind:value={signUpName} label="Username : " />
-        <Textfield bind:value={signUpPassword} label="Password "/>
-        <Button style="margin-top: 1em;" on:click={() => {signUpMenu.setOpen(false); console.log(`${signUpName} ${signUpPassword}`);}}>
-            Submit
-        </Button>
-    </div>
-</MenuSurface>
-<Drawer variant="modal" bind:open style="background-color:brown; width:40%;">
-=======
 <Drawer variant="modal" bind:open style="background-color:brown; width:40%; height:100%;">
->>>>>>> 558089efb5866a9ae398ff91fdc7ddb3c730eb78
     <Header>
         <br><br><br><drawertitle><sub>UD<sub /><sup>GA<sup>JI</sup></sup></sub></drawertitle><Title />
         <Subtitle>Enjoy our services, adventurer!</Subtitle>

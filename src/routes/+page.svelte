@@ -5,7 +5,6 @@
     onMount(() => {
         console.log(data)
     })
-
 </script>
 {#each data.found as found}
     <div class="cell" id="cell">

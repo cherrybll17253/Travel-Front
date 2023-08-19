@@ -1,14 +1,35 @@
 import type { PageServerLoad } from "./$types";
 import db from '$lib/db';
+import { env } from '$env/dynamic/private';
 import type { Collection } from "mongodb";
 import type { Post } from "./type";
-export const load = async () => {
+export const load:PageServerLoad = async () => {
     const collection: Collection<Post> = db.collection('post');
     const found = (await collection.find({}).toArray()).map(v => ({...v, _id:v._id.toString()}))
+    const {
+        apiKey,
+        authDomain,
+        projectId,
+        storageBucket,
+        messagingSenderId,
+        appId,
+        measurementId
+    } = env;
     return {
+        firebaseConfig:{
+            apiKey,
+            authDomain,
+            projectId,
+            storageBucket,
+            messagingSenderId,
+            appId,
+            measurementId
+        },
         found
-    }
+    };
 }
+
+
 
 
 
