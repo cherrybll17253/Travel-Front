@@ -38,7 +38,6 @@
     let distanceMenu: MenuSurface;
     let uploadMenu: MenuSurface;
     let searchMenu: MenuSurface;
-    let signUpMenu: MenuSurface;
 
     let budgetSet = 0;
     let budgetFrom = 0;

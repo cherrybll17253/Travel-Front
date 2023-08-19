@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
+    import IconButton, { Icon } from "@smui/icon-button";
     import type { PageServerData } from "./$types";
     export let data:PageServerData;
     onMount(() => {
@@ -11,6 +12,12 @@
         <img src={found.uploadImageLink} alt="placeholder">
            <h1><u>{found.uploadTitle}</u></h1>
             {found.uploadText}
+        <br>
+        <IconButton
+            class="material-icons"
+        >
+            star
+        </IconButton>
     </div>
 {/each}
 <style>
