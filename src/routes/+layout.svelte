@@ -295,7 +295,6 @@
                 <Option value={sort}>{sort}</Option>
             {/each}
         </Select>
-        <Textfield bind:value={obj.uploadLocation} label="Location(Be specific) : " style="width:100%;"/>
         {#if obj.uploadSortFirst == "Healing"}
                 <Select bind:value={obj.uploadSortSecond} label="Select Menu">
                     {#each healingSort as hsort}
@@ -317,14 +316,16 @@
                     {/each}
                 </Select>
             {/if}
+        <Textfield bind:value={obj.uploadLocation} label="Location(Be specific) : " style="width:100%;"/>
         <Button 
             style="margin-top: 1em;" 
             on:click={async () => {
-                if( obj.uploadTitle.length > 1
-                &&  obj.uploadText.length > 1
-                &&  obj.uploadImageLink.length > 1
+                if( obj.uploadTitle.length > 4
+                &&  obj.uploadText.length > 10
+                &&  obj.uploadImageLink.length > 6
                 &&  obj.uploadSortFirst != ""
                 &&  obj.uploadSortSecond != ""
+                &&  obj.uploadLocation.length > 2
                 )   {
                     uploadMenu.setOpen(false);
                     await uploadDB();

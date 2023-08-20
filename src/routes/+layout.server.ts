@@ -1,4 +1,5 @@
 import { env } from '$env/dynamic/private';
+import 'dotenv/config';
 import type { LayoutServerLoad } from './$types';
 export const load:LayoutServerLoad = async () => {
     const {
@@ -9,7 +10,7 @@ export const load:LayoutServerLoad = async () => {
         messagingSenderId,
         appId,
         measurementId
-    } = env;
+    } = process.env;
     return {
         firebaseConfig:{
             apiKey,
