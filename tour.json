@@ -1,0 +1,379 @@
+[
+    {
+      "uploadTitle": "Suseongdonggyegok Valley",
+      "uploadText": "Suseong-dong Valley's stream runs down from Inwangsan Mountain and joins Cheonggyecheon Stream...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "With_Nature",
+      "uploadLocation": "185-3, Ogin-dong, Jongno-gu, Seoul 서울특별시 종로구 옥인동"
+    },
+    {
+      "uploadTitle": "LOTTE Department Store – Busan Main Store",
+      "uploadText": "The LOTTE Busan Main store, located in the bustling downtown area of Seomyeon...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Leisure_Sports",
+      "uploadLocation": "772, Gaya-daero, Busanjin-gu, Busan"
+    },
+    {
+      "uploadTitle": "Anyang Public Art Project",
+      "uploadText": "Anyang Public Art Project (APAP) is Korea's only public art festival that takes place once every three years...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Food",
+      "uploadSortSecond": "Korean_Dish",
+      "uploadLocation": "Anyang-dong, Anyang-si, Gyeonggi-do"
+    },
+    {
+      "uploadTitle": "The Forest Chosochaekbang",
+      "uploadText": "The Forest Chosochaekbang, located in the middle of Inwangsan Mountain...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "With_Nice_View",
+      "uploadLocation": "172, Inwangsan-ro, Jongno-gu, Seoul"
+    },
+    {
+      "uploadTitle": "LOTTE Department Store - Myeongdong Main Store",
+      "uploadText": "LOTTE Main store is the original branch of LOTTE Department Store, situated in the heart of Korea's bustling tourism hub...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Leisure_Sports",
+      "uploadLocation": "81, Namdaemun-ro, Jung-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Cafe 385",
+      "uploadText": "Cafe 385 aims to deliver a sense of well-deserved relaxation and peace away from the fast-paced life...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Food",
+      "uploadSortSecond": "Non_Korean_Dish",
+      "uploadLocation": "539, Taejong-ro, Yeongdo-gu, Busan"
+    },
+    {
+      "uploadTitle": "Seodaemun Prison History Hall",
+      "uploadText": "Seodaemun Prison History Hall offers an opportunity for visitors to learn about Korea's tumultuous modern history...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "251, Tongil-ro, Seodaemun-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Jeju National University Museum",
+      "uploadText": "Jeju National University Museum is the only museum in Korea that collects, preserves, and exhibits natural specimens from the region...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "102 Jejudaehak-ro, Jeju-si, Jeju-do"
+    },
+    {
+      "uploadTitle": "The War Memorial of Korea",
+      "uploadText": "The War Memorial of Korea serves as a national moral educational venue and a place for historical contemplation...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "29, Itaewon-ro, Yongsan-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Jeju Kimnyoung Maze Park",
+      "uploadText": "Jeju Kimnyoung Maze Park is a popular tourist attraction that offers various types of mazes and other amusements...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "63, Kimnyounggwangjang-ro, Jeju-si, Jeju-do"
+    },
+    {
+      "uploadTitle": "Garak Market",
+      "uploadText": "Garak Market is a large wholesale market in Seoul, dealing mainly in fresh produce and agricultural products...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Food",
+      "uploadSortSecond": "Korean_Dish",
+      "uploadLocation": "190, Garak-ro, Songpa-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Mokpo Modern History Museum",
+      "uploadText": "Mokpo Modern History Museum is Korea's first modern history museum that introduces the modern history of Korea...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "8, Yudalsan-ro, Mokpo-si, Jeollanam-do"
+    },
+    {
+      "uploadTitle": "Seoul Museum of History",
+      "uploadText": "Seoul Museum of History showcases the city's history and culture from the Joseon Dynasty to the present day...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "55 Saemunan-ro, Jongno-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Yongdusan Park",
+      "uploadText": "Yongdusan Park is a park in downtown Busan that offers a panoramic view of the city and various attractions...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "With_Nice_View",
+      "uploadLocation": "37-55, Yongdusan-gil, Jung-gu, Busan"
+    },
+    {
+      "uploadTitle": "Donggung Palace and Wolji Pond",
+      "uploadText": "Donggung Palace and Wolji Pond, known as Anapji, is an artificial pond in Gyeongju National Park...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "102, Wonhwa-ro, Gyeongju-si, Gyeongsangbuk-do"
+    },
+    {
+      "uploadTitle": "Incheon Art Platform",
+      "uploadText": "Incheon Art Platform is a cultural and artistic space created to promote the exchange of various contemporary artworks...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "3, Gwangjang-ro 29beon-gil, Michuhol-gu, Incheon"
+    },
+    {
+      "uploadTitle": "Jeju Folk Village",
+      "uploadText": "Jeju Folk Village is a living museum that exhibits the unique culture and lifestyle of Jeju's past...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "631, Oedo-ro, Jeju-si, Jeju-do"
+    },
+    {
+      "uploadTitle": "Busan Gamcheon Culture Village",
+      "uploadText": "Busan Gamcheon Culture Village is a colorful hillside village in Busan, known for its artistic and cultural atmosphere...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "203, Gamnae 2-ro, Saha-gu, Busan"
+    },
+    {
+      "uploadTitle": "Jeju Stone Park",
+      "uploadText": "Jeju Stone Park is an ecological and cultural park that showcases the history, culture, and ecology of stonework...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "497, Nokchabunjae-ro, Jeju-si, Jeju-do"
+    },
+    {
+      "uploadTitle": "Dongdaemun Design Plaza (DDP)",
+      "uploadText": "Dongdaemun Design Plaza (DDP) is a major urban development landmark in Seoul and a cultural space for various exhibitions...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "281, Eulji-ro, Jung-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Jeju Teddy Bear Museum",
+      "uploadText": "Jeju Teddy Bear Museum is a unique museum that displays teddy bears of various shapes, sizes, and themes...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "31, Jungmungwangwang-ro 110beon-gil, Seogwipo-si, Jeju-do"
+    },
+    {
+      "uploadTitle": "Icheon Cerapia",
+      "uploadText": "Icheon Cerapia is a ceramic art theme park where visitors can experience various ceramic-related activities...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "216, Gyeongchung-daero, Icheon-si, Gyeonggi-do"
+    },
+    {
+      "uploadTitle": "Gwangalli Beach",
+      "uploadText": "Gwangalli Beach is a popular beach in Busan known for its fine sand, clear waters, and stunning views...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "With_Nice_View",
+      "uploadLocation": "219, Gwanganhaebyeon-ro, Suyeong-gu, Busan"
+    },
+    {
+      "uploadTitle": "Jeju Glass Castle",
+      "uploadText": "Jeju Glass Castle is an exhibition and experience space where visitors can enjoy glass art and sculptures in various themes...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "2824-3, Nohyeong-dong, Jeju-si, Jeju-do"
+    },
+    {
+      "uploadTitle": "Samcheok Beach",
+      "uploadText": "Samcheok Beach is a popular coastal area in Gangwon Province known for its unique rock formations and scenic beauty...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "With_Nature",
+      "uploadLocation": "915, Haean-ro, Samcheok-si, Gangwon-do"
+    },
+    {
+      "uploadTitle": "Seoul Forest",
+      "uploadText": "Seoul Forest is a large park in the heart of Seoul, offering various recreational facilities and a natural environment...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "With_Nature",
+      "uploadLocation": "273, Ttukseom-ro, Seongdong-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Hwaseong Fortress",
+      "uploadText": "Hwaseong Fortress is an impressive wall that surrounds the center of Suwon, the provincial capital of Gyeonggi-do...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "With_Nature",
+      "uploadLocation": "910, Jeongjo-ro, Paldal-gu, Suwon-si, Gyeonggi-do"
+    },
+    {
+      "uploadTitle": "Seokchon Lake",
+      "uploadText": "Seokchon Lake is a man-made lake located near Lotte World Tower and offers a peaceful place for leisure and relaxation...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "With_Nature",
+      "uploadLocation": "148, Jamsil-ro, Songpa-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Haneul Park",
+      "uploadText": "Haneul Park, located within the World Cup Park in Seoul, is famous for its breathtaking autumn scenery and vast fields...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "With_Nice_View",
+      "uploadLocation": "487-48, Sangam-dong, Mapo-gu, Seoul"
+    },
+    {
+      "uploadTitle": "The Garden of Morning Calm",
+      "uploadText": "The Garden of Morning Calm is a beautiful garden in Gapyeong, known for its variety of flowers and themed sections...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "With_Nature",
+      "uploadLocation": "432, Sumogwon-ro, Sang-myeon, Gapyeong-gun, Gyeonggi-do"
+    },
+    {
+      "uploadTitle": "Suwon Hwaseong Museum",
+      "uploadText": "Suwon Hwaseong Museum is a history museum dedicated to the research and exhibition of the history and culture of Hwaseong...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "55, Jeongjo-ro, Paldal-gu, Suwon-si, Gyeonggi-do"
+    },
+    {
+      "uploadTitle": "Seoul Battleship Park",
+      "uploadText": "Seoul Battleship Park showcases retired naval vessels and submarines, allowing visitors to explore these impressive ships...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "117, Hyeonmuro, Yeongdeungpo-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Seodaemun Museum of Natural History",
+      "uploadText": "Seodaemun Museum of Natural History offers various exhibitions and hands-on experiences related to natural history...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "141-52, Yeonhui-dong, Seodaemun-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Jeju Horse Park",
+      "uploadText": "Jeju Horse Park is a horse-themed park that offers horse riding experiences, exhibitions, and performances...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "1233, Haemajihaean-ro, Seogwipo-si, Jeju-do"
+    },
+    {
+      "uploadTitle": "Seonyudo Park",
+      "uploadText": "Seonyudo Park is an ecological park located in the middle of the Hangang River, providing a serene natural environment...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "With_Nature",
+      "uploadLocation": "343, Seonyu-ro, Yeongdeungpo-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Bukchon Hanok Village",
+      "uploadText": "Bukchon Hanok Village is a traditional Korean village with a long history located on the northern slope of Bukaksan...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "37, Gyedong-gil, Jongno-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Naksan Park",
+      "uploadText": "Naksan Park offers a pleasant hiking experience and panoramic views of the city, especially from the Seoul Fortress Wall...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "With_Nice_View",
+      "uploadLocation": "41-18, Naksan-gil, Jongno-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Gangchon Rail Park",
+      "uploadText": "Gangchon Rail Park is a unique attraction where visitors can pedal along old railroad tracks while enjoying the scenery...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "1383, Gimyujeong-ro, Chuncheon-si, Gangwon-do"
+    },
+    {
+      "uploadTitle": "Suwon IPARK Museum of Art",
+      "uploadText": "Suwon IPARK Museum of Art is a contemporary art museum that exhibits a diverse range of modern artworks...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "323, Changnyong-daero, Paldal-gu, Suwon-si, Gyeonggi-do"
+    },
+    {
+      "uploadTitle": "The Story of King Sejong Exhibition Hall",
+      "uploadText": "The Story of King Sejong Exhibition Hall is a museum dedicated to the life and accomplishments of King Sejong the Great...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "209, Sejong-daero, Jongno-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Jeju Aerospace Museum",
+      "uploadText": "Jeju Aerospace Museum is an educational museum that showcases the history and development of aviation and aerospace technology...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "665, Seohaean-ro, Seogwipo-si, Jeju-do"
+    },
+    {
+      "uploadTitle": "Seoul Museum of Art (SeMA)",
+      "uploadText": "Seoul Museum of Art (SeMA) is a contemporary art museum that exhibits various forms of modern artworks...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "61, Deoksugung-gil, Jung-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Suwon Hwaseong Haenggung",
+      "uploadText": "Suwon Hwaseong Haenggung is the temporary palace where King Jeongjo stayed during his visits to his father's tomb...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Healing",
+      "uploadSortSecond": "With_Nature",
+      "uploadLocation": "825, Jeongjo-ro, Paldal-gu, Suwon-si, Gyeonggi-do"
+    },
+    {
+      "uploadTitle": "Seodaemun Independence Park",
+      "uploadText": "Seodaemun Independence Park is a historic park that commemorates the sacrifices made by Korean independence activists...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "2, Naebu Gil, Seodaemun-gu, Seoul"
+    },
+    {
+      "uploadTitle": "Jeju Love Land",
+      "uploadText": "Jeju Love Land is an adult-themed sculpture park that features a variety of erotic art and sculptures...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "2894-72, Cheonbaek-ro, Jeju-si, Jeju-do"
+    },
+    {
+      "uploadTitle": "Suwon Hwaseong Museum",
+      "uploadText": "Suwon Hwaseong Museum is a history museum that introduces the history and culture of Suwon's Hwaseong Fortress...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "13, Changnyong-daero 2193beon-gil, Paldal-gu, Suwon-si, Gyeonggi-do"
+    },
+    {
+      "uploadTitle": "Seoul Grand Park",
+      "uploadText": "Seoul Grand Park is a large park that includes Seoul Zoo, Seoul Land amusement park, and various outdoor attractions...",
+      "uploadImageLink": "NO_LINK",
+      "uploadSortFirst": "Activity",
+      "uploadSortSecond": "Any",
+      "uploadLocation": "102, Daegongwongwangjang-ro, Gwacheon-si, Gyeonggi-do"
+    }
+  ]
+  

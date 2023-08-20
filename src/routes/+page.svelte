@@ -10,15 +10,10 @@
 {#each data.found as found}
     <div class="cell" id="cell">
         <img src={found.uploadImageLink} alt="placeholder">
-           <h1><u>{found.uploadTitle}</u></h1>
+        <h1><u>{found.uploadTitle}</u></h1>
+        <div id="utext">
             {found.uploadText}
-        <br>
-        <IconButton
-            class="material-icons"
-        >
-            star
-        </IconButton>
-        <br>
+        </div>
         <strong>{found.uploadLocation}</strong>
     </div>
 {/each}
@@ -35,10 +30,13 @@
     .cell{
         display: inline-block;
         border:solid 1px pink;
-        width: 33%;
+        width: 100%;
         word-break:break-all;
         height:fit-content;
         background-color: gray;
         text-align: center;
+    }
+    #utext{
+        border:solid 1px pink;
     }
 </style>

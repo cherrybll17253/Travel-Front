@@ -1,6 +1,5 @@
 import type { PageServerLoad } from "./$types";
 import db from '$lib/db';
-import { env } from '$env/dynamic/private';
 import type { Collection } from "mongodb";
 import type { Post } from "./type";
 export const load:PageServerLoad = async () => {
