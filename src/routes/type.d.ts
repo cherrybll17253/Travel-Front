@@ -6,4 +6,5 @@ export interface Post {
     uploadImageLink : string;
     uploadSortFirst : string;
     uploadSortSecond : string;
+    uploadLocation : string;
 }

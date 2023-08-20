@@ -1,7 +1,7 @@
 <script lang="ts">
     import IconButton, { Icon } from "@smui/icon-button";
-    import type { PageServerData } from "./$types";
-    export let data: PageServerData;
+    import type { LayoutServerData } from "./$types";
+    export let data: LayoutServerData;
     import TopAppBar, { Row, Section } from "@smui/top-app-bar";
     import Drawer, {
         AppContent,
@@ -17,7 +17,7 @@
         Text,
         Graphic,
         Separator,
-        Subheader,
+        Subheader
     } from "@smui/list";
 
     let open = false;
@@ -33,7 +33,6 @@
     import MenuSurface from '@smui/menu-surface';
     import Textfield from '@smui/textfield'; 
     import Select, { Option } from '@smui/select';
-    import { goto } from "$app/navigation";
     let budgetMenu: MenuSurface;
     let distanceMenu: MenuSurface;
     let uploadMenu: MenuSurface;
@@ -51,6 +50,7 @@
         uploadImageLink:'',
         uploadSortFirst:'',
         uploadSortSecond:'',
+        uploadLocation:''
     };
 
     let sorts = ["Healing", "Activity", "Food"]
@@ -94,6 +94,7 @@
     const firebaseConfig = data.firebaseConfig;
     let curUser:User|null = null;
     onMount(() => {
+        console.log("onMount", firebaseConfig)
         if(getApps().length === 0){
             initializeApp(firebaseConfig);
         }        
@@ -110,9 +111,9 @@
         }
         const provider = new GoogleAuthProvider();
         const auth = getAuth();
-        provider.addScope('https://www.googleapis.com/auth/contacts.readonly'); // Google Provider's Code(Google API scope)
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly'); 
         try{
-            await setPersistence(auth, browserSessionPersistence); //Auth 정보를 저장할지 말지
+            await setPersistence(auth, browserSessionPersistence); 
             const result = await signInWithPopup(auth, provider); 
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential?.accessToken;
@@ -122,9 +123,7 @@
             if(error instanceof FirebaseError){
                 const code = error.code;
                 const message = error.message;
-                // The email of the user's account used.
                 const email = error.customData?.email;
-                // The AuthCredential type that was used.
                 const credential = GoogleAuthProvider.credentialFromError(error);
                 console.log({
                     code, message, email, credential
@@ -174,10 +173,19 @@
             >
                 search
             </IconButton>
-            <IconButton 
-            class="material-icons"
-            on:click={async () => await login(firebaseConfig)}
-            >lock</IconButton>
+            <h3>{curUser ? `Logged in as ${curUser.displayName}` : `Logged out`}</h3>
+            {#if !curUser}
+                <IconButton 
+                    on:click={async () => await login(firebaseConfig)}
+                    class="material-icons"
+                >login</IconButton>
+            {/if}
+            {#if curUser}
+                <IconButton 
+                    on:click={async () => await logout(firebaseConfig)}
+                    class="material-icons"
+                >logout</IconButton>
+            {/if}
         </Section>
     </Row>
 </TopAppBar>
@@ -287,6 +295,7 @@
                 <Option value={sort}>{sort}</Option>
             {/each}
         </Select>
+        <Textfield bind:value={obj.uploadLocation} label="Location(Be specific) : " style="width:100%;"/>
         {#if obj.uploadSortFirst == "Healing"}
                 <Select bind:value={obj.uploadSortSecond} label="Select Menu">
                     {#each healingSort as hsort}

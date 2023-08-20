@@ -18,6 +18,8 @@
         >
             star
         </IconButton>
+        <br>
+        <strong>{found.uploadLocation}</strong>
     </div>
 {/each}
 <style>
