@@ -26,6 +26,7 @@
 {/each}
 <hr>
 <!-- <div id="map" style="width:500px;height:400px;"></div> -->
+
 <style>
     * {
         margin: 0;
