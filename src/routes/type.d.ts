@@ -7,4 +7,5 @@ export interface Post {
     uploadSortFirst : string;
     uploadSortSecond : string;
     uploadLocation : string;
+    userName : string;
 }

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { readable } from "svelte/store"
     import IconButton, { Icon } from "@smui/icon-button";
     import type { LayoutServerData } from "./$types";
     export let data: LayoutServerData;
@@ -19,7 +20,7 @@
         Separator,
         Subheader
     } from "@smui/list";
-
+    import { loginInfo } from "$lib/store";
     let open = false;
     let active = "";
 
@@ -44,14 +45,6 @@
     let distanceSet = 0;
     let distanceFrom = 0;
     let distanceTo = 0;
-    const obj = {
-        uploadTitle:'',
-        uploadText:'',
-        uploadImageLink:'',
-        uploadSortFirst:'',
-        uploadSortSecond:'',
-        uploadLocation:''
-    };
 
     let sorts = ["Healing", "Activity", "Food"]
     let healingSort = ["With_Nature", "With_Nice_View", "Any"]
@@ -60,13 +53,22 @@
 
     let searchText = '';
     let searchSet = 0;
+    const obj = {
+        uploadTitle:'',
+        uploadText:'',
+        uploadImageLink:'',
+        uploadSortFirst:'',
+        uploadSortSecond:'',
+        uploadLocation:'',
+        userName:''
+    };
     async function uploadDB(){
         const res = await fetch('/api', {
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
             },
-            body:JSON.stringify(obj)
+            body:(JSON.stringify(obj))
         });
         await res.json();
         location.reload();
@@ -90,9 +92,8 @@
 
     } from 'firebase/app';
 
-    import type { PageData } from './$types';
     const firebaseConfig = data.firebaseConfig;
-    let curUser:User|null = null;
+    
     onMount(() => {
         console.log("onMount", firebaseConfig)
         if(getApps().length === 0){
@@ -100,7 +101,9 @@
         }        
         const auth = getAuth();
         const un = onAuthStateChanged(auth, user => {
-            curUser = user;
+            if(user){
+                loginInfo.set(user);
+            }
         })
         return () => {un()};
     })
@@ -134,6 +137,7 @@
         }
     }
     const logout = async(firebaseConfig:FirebaseOptions) => {
+        console.log(JSON.stringify(obj) + JSON.stringify($loginInfo))
         if(getApps().length === 0){
             initializeApp(firebaseConfig);
         }
@@ -173,14 +177,14 @@
             >
                 search
             </IconButton>
-            <h3>{curUser ? `Logged in as ${curUser.displayName}` : `Logged out`}</h3>
-            {#if !curUser}
+            {#if !$loginInfo}
+                <h3>Logged out</h3>
                 <IconButton 
                     on:click={async () => await login(firebaseConfig)}
                     class="material-icons"
                 >login</IconButton>
-            {/if}
-            {#if curUser}
+            {:else}
+                <h3>Logged in as {$loginInfo.displayName}</h3>
                 <IconButton 
                     on:click={async () => await logout(firebaseConfig)}
                     class="material-icons"
@@ -204,16 +208,17 @@
                 <Graphic class="material-icons" aria-hidden="true">star</Graphic>
                 <Text>Starred Destination</Text>
             </Item>
-            <Item
-                href="javascript:void(0)"
-                on:click={() => setActive("upload")}
-                on:click={() => uploadMenu.setOpen(true)}
-                activated={active === "upload"}
-            >
-                <Graphic class="material-icons" aria-hidden="true">upload</Graphic>
-                <Text>Upload</Text>
-            </Item>
-
+            {#if $loginInfo}
+                <Item
+                    href="javascript:void(0)"
+                    on:click={() => setActive("upload")}
+                    on:click={() => uploadMenu.setOpen(true)}
+                    activated={active === "upload"}
+                >
+                    <Graphic class="material-icons" aria-hidden="true">upload</Graphic>
+                    <Text>Upload</Text>
+                </Item>
+            {/if}
             <Separator />
             <Subheader tag="h6">Filter</Subheader>
             <Item
@@ -275,7 +280,7 @@
 </MenuSurface>
 <MenuSurface bind:this={uploadMenu} anchorCorner="BOTTOM_LEFT">
     <div
-        style="width:500px; height:550px; overflow:hidden;"
+        style="width:500px; height:800px; overflow:hidden;"
     >
         <IconButton 
             class="material-icon" 
@@ -284,7 +289,7 @@
                 uploadMenu.setOpen(false); 
             }}
         >X</IconButton>
-        <Textfield bind:value={obj.uploadTitle} label="Title : " style="width:100%;" input$maxlength={30} /><br>
+        <Textfield bind:value={obj.uploadTitle} label="Title : " style="width:100%;" input$maxlength={50} /><br>
         <Textfield bind:value={obj.uploadText} label="Write a brief description : " style="width:100%;" input$maxlength={300} /><br>
         <Textfield bind:value={obj.uploadImageLink} label="Image Link : " style="width:100%;"/>
         <br>
@@ -316,10 +321,19 @@
                     {/each}
                 </Select>
             {/if}
-        <Textfield bind:value={obj.uploadLocation} label="Location(Be specific) : " style="width:100%;"/>
-        <Button 
+            <Textfield bind:value={obj.uploadLocation} label="Location(Be specific/ In Korean) : " style="width:100%;"/>
+            {#if obj.uploadLocation != ""}
+                <a href={"https://map.kakao.com/link/search/" + obj.uploadLocation} target="_blank">Is this correct?</a>
+                <br>
+            {/if}
+            {#if $loginInfo}
+                {$loginInfo.displayName}
+            {/if}
+            <Button 
             style="margin-top: 1em;" 
-            on:click={async () => {
+            on:click={
+            async () => {
+                obj.userName = $loginInfo.displayName || '';
                 if( obj.uploadTitle.length > 4
                 &&  obj.uploadText.length > 10
                 &&  obj.uploadImageLink.length > 6
@@ -331,9 +345,9 @@
                     await uploadDB();
                 } 
             }}
-        >
-            Submit
-        </Button>
+            >
+                Submit
+            </Button>
 
     </div>
 </MenuSurface>
