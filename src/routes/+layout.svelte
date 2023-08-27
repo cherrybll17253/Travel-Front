@@ -209,17 +209,24 @@
                 <Graphic class="material-icons" aria-hidden="true">star</Graphic>
                 <Text>Starred Destination</Text>
             </Item>
-            {#if $loginInfo}
-                <Item
-                    href="javascript:void(0)"
-                    on:click={() => setActive("upload")}
-                    on:click={() => uploadMenu.setOpen(true)}
-                    activated={active === "upload"}
-                >
-                    <Graphic class="material-icons" aria-hidden="true">upload</Graphic>
-                    <Text>Upload</Text>
-                </Item>
-            {/if}
+            <Item
+                href="javascript:void(0)"
+                on:click={() => setActive("upload")}
+                on:click={
+                    () => {
+                        if($loginInfo){ 
+                            uploadMenu.setOpen(true)
+                        }
+                        else{
+                            alert("You need to Log in to do that!")
+                        }
+                    }
+                }
+                activated={active === "upload"}
+            >
+                <Graphic class="material-icons" aria-hidden="true">upload</Graphic>
+                <Text>Upload</Text>
+            </Item>
             <Separator />
             <Subheader tag="h6">Filter</Subheader>
             <Item

@@ -19,8 +19,7 @@
         <a style="background-color:white;" href={"https://map.kakao.com/link/search/" + found.uploadLocation} target="_blank">Click Here For Map</a>
 
         <br>
-            Uploaded By : {found.userName}
-
+        Uploaded By : {found.userName}
     </div>
 {/each}
 <hr>
