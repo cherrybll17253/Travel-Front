@@ -143,6 +143,7 @@
         }
         const auth = getAuth()
         await auth.signOut()
+        location.reload()
     }
 </script>
 
