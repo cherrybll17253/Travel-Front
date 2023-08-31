@@ -20,7 +20,7 @@
         Separator,
         Subheader
     } from "@smui/list";
-    import { loginInfo } from "$lib/store";
+    import { loginInfo, budgetFrom, budgetTo } from "$lib/store";
     let open = false;
     let active = "";
 
@@ -40,8 +40,8 @@
     let searchMenu: MenuSurface;
 
     let budgetSet = 0;
-    let budgetFrom = 0;
-    let budgetTo = 0;
+    let budgetFromo = 0;
+    let budgetToo = 0;
     let distanceSet = 0;
     let distanceFrom = 0;
     let distanceTo = 0;
@@ -60,9 +60,12 @@
         uploadSortFirst:'',
         uploadSortSecond:'',
         uploadLocation:'',
-        userName:''
+        userName:'',
+        budget:0,
+
     };
     async function uploadDB(){
+        console.log(obj)
         const res = await fetch('/api', {
             method:'POST',
             headers:{
@@ -73,6 +76,7 @@
         await res.json();
         location.reload();
     }
+
     import { onMount } from 'svelte'
     import {
         GoogleAuthProvider,
@@ -262,9 +266,16 @@
                 budgetMenu.setOpen(false); 
             }}
         >X</IconButton>
-        <Textfield bind:value={budgetFrom} label="From(₩) : " />
-        <Textfield bind:value={budgetTo} label="To(₩) : "/>
-        <Button style="margin-top: 1em;" on:click={() => {budgetMenu.setOpen(false); console.log(`${budgetFrom}₩ ~ ${budgetTo}₩`); budgetSet = 1}}>
+        <Textfield bind:value={budgetFromo} label="From(₩) : " />
+        <Textfield bind:value={budgetToo} label="To(₩) : "/>
+        <Button 
+        style="margin-top: 1em;" 
+        on:click={() => {
+            budgetMenu.setOpen(false); 
+            budgetSet = 1;
+            budgetFrom.set(budgetFromo) 
+            budgetTo.set(budgetToo)
+        }}>
             Submit
         </Button>
     </div>
@@ -329,13 +340,11 @@
                     {/each}
                 </Select>
             {/if}
-            <Textfield bind:value={obj.uploadLocation} label="Location(Be specific/ In Korean) : " style="width:100%;"/>
+            <Textfield bind:value={obj.uploadLocation} label="Location(Be specific/ In Korean) : " style="width:100%;"/><br>
+            <Textfield bind:value={obj.budget} label="Needed Budget(Per person/Max amount) : " type="number"/><br>
             {#if obj.uploadLocation != ""}
                 <a href={"https://map.kakao.com/link/search/" + obj.uploadLocation} target="_blank">Is this correct?</a>
                 <br>
-            {/if}
-            {#if $loginInfo}
-                {$loginInfo.displayName}
             {/if}
             <Button 
             style="margin-top: 1em;" 
@@ -348,6 +357,7 @@
                 &&  obj.uploadSortFirst != ""
                 &&  obj.uploadSortSecond != ""
                 &&  obj.uploadLocation.length > 2
+                
                 )   {
                     uploadMenu.setOpen(false);
                     await uploadDB();
@@ -397,7 +407,11 @@
     {#if budgetSet == 1}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-        <h6 on:click={() => budgetSet = 0}>budget {budgetFrom}₩ ~ {budgetTo}₩</h6>
+        <h6 on:click={() => {
+            budgetSet = 0;
+            budgetFrom.set(0);
+            budgetTo.set(999999999999) 
+        }}>budget {$budgetFrom}₩ ~ {$budgetTo}₩</h6>
     {/if}
     {#if searchText != "" && searchSet == 1}
         <h5>Searching for : </h5>

@@ -8,4 +8,5 @@ export interface Post {
     uploadSortSecond : string;
     uploadLocation : string;
     userName : string;
+    budget: number;
 }
