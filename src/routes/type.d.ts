@@ -9,4 +9,6 @@ export interface Post {
     uploadLocation : string;
     userName : string;
     budget: number;
+    uploadType : string;
+    commentText : string;
 }

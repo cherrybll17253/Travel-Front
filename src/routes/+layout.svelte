@@ -20,7 +20,7 @@
         Separator,
         Subheader
     } from "@smui/list";
-    import { loginInfo, budgetFrom, budgetTo } from "$lib/store";
+    import { loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentGoStop } from "$lib/store";
     let open = false;
     let active = "";
 
@@ -35,16 +35,13 @@
     import Textfield from '@smui/textfield'; 
     import Select, { Option } from '@smui/select';
     let budgetMenu: MenuSurface;
-    let distanceMenu: MenuSurface;
+    let uploadTypeCMenu: MenuSurface;
     let uploadMenu: MenuSurface;
     let searchMenu: MenuSurface;
 
     let budgetSet = 0;
     let budgetFromo = 0;
     let budgetToo = 0;
-    let distanceSet = 0;
-    let distanceFrom = 0;
-    let distanceTo = 0;
 
     let sorts = ["Healing", "Activity", "Food"]
     let healingSort = ["With_Nature", "With_Nice_View", "Any"]
@@ -62,7 +59,8 @@
         uploadLocation:'',
         userName:'',
         budget:0,
-
+        uploadType:'',
+        commentText:'',
     };
     async function uploadDB(){
         console.log(obj)
@@ -231,17 +229,17 @@
                 <Graphic class="material-icons" aria-hidden="true">upload</Graphic>
                 <Text>Upload</Text>
             </Item>
-            <Separator />
-            <Subheader tag="h6">Filter</Subheader>
             <Item
                 href="javascript:void(0)"
-                on:click={() => setActive("Fdistance")}
-                on:click={() => distanceMenu.setOpen(true)}
-                activated={active === "Fdistance"}
+                on:click={() => setActive("FuploadTypeC")}
+                on:click={() => uploadTypeCMenu.setOpen(true)}
+                activated={active === "FuploadTypeC"}
             >
-                <Graphic class="material-icons" aria-hidden="true">KM</Graphic>
-                <Text>By distance</Text>
+                <Graphic class="material-icons" aria-hidden="true">M/C</Graphic>
+                <Text>Main / Comments</Text>
             </Item>
+            <Separator />
+            <Subheader tag="h6">Filter</Subheader>
             <Item
                 href="javascript:void(0)"
                 on:click={() => setActive("Fbudget")}
@@ -280,19 +278,26 @@
         </Button>
     </div>
 </MenuSurface>
-<MenuSurface bind:this={distanceMenu} anchorCorner="BOTTOM_LEFT">
+<MenuSurface bind:this={uploadTypeCMenu} anchorCorner="BOTTOM_LEFT">
     <div
         style="margin: 1em; display: flex; flex-direction: column; align-items: flex-end;"
     >
         <IconButton 
             class="material-icon" 
             on:click={() => {
-                distanceMenu.setOpen(false); 
+                uploadTypeCMenu.setOpen(false); 
             }}
         >X</IconButton>
-        <Textfield bind:value={distanceFrom} label="From(Km) : " />
-        <Textfield bind:value={distanceTo} label="To(Km) : "/>
-        <Button style="margin-top: 1em;" on:click={() => {distanceMenu.setOpen(false); console.log(`${distanceFrom}Km ~ ${distanceTo}Km`); distanceSet = 1}}>
+        <List>
+            <Item on:SMUI:action={() => ($uploadTypeChosen = "post")}>
+              <Text>Main</Text>
+            </Item>
+            <Item on:SMUI:action={() => ($uploadTypeChosen = "comments")}>
+              <Text>Comments</Text>
+            </Item>
+        </List>
+        Selected : {$uploadTypeChosen}
+        <Button style="margin-top: 1em;" on:click={() => {uploadTypeCMenu.setOpen(false);}}>
             Submit
         </Button>
     </div>
@@ -360,6 +365,7 @@
                 
                 )   {
                     uploadMenu.setOpen(false);
+                    obj.uploadType = "post"
                     await uploadDB();
                 } 
             }}
@@ -396,13 +402,8 @@
     </div>
 </MenuSurface>
 <div class="filtercontainer">
-    {#if budgetSet == 1 || distanceSet == 1}
+    {#if budgetSet == 1}
         <h5>Filters active : </h5>
-    {/if}
-    {#if distanceSet == 1}
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-        <h6 on:click={() => distanceSet = 0}>distance {distanceFrom}Km ~ {distanceTo}Km</h6>
     {/if}
     {#if budgetSet == 1}
         <!-- svelte-ignore a11y-click-events-have-key-events -->

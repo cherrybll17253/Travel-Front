@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { loginInfo, budgetFrom, budgetTo } from "$lib/store";
+    import { loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentGoStop } from "$lib/store";
+    $uploadTypeChosen = "post"
     import IconButton, { Icon } from "@smui/icon-button";
     import type { PageServerData } from "./$types";
     export let data:PageServerData;
@@ -10,22 +11,40 @@
 </script>
 
 {#each data.found as found}
-    {#if found.budget <= $budgetTo && found.budget >= $budgetFrom}
-        <div class="cell" id="cell">
-            <img src={found.uploadImageLink} alt="placeholder" width=150>
-            <h1><u>{found.uploadTitle}</u></h1>
-            <div id="utext">
-                {found.uploadText}
-            </div>
-            <br>
-            <a style="background-color:white;" href={"https://map.kakao.com/link/search/" + found.uploadLocation} target="_blank">Click Here For Map</a>
+    {#if $uploadTypeChosen == "post" && $uploadTypeChosen == found.uploadType}
+        {#if found.budget <= $budgetTo && found.budget >= $budgetFrom || $budgetFrom == null}
+            <div class="cell">
+                    <img src={found.uploadImageLink} alt="placeholder" width=150>
+                    <h1><u>{found.uploadTitle}</u></h1>
+                    <div id="utext">
+                        {found.uploadText}
+                    </div>
+                    <br>
+                        <a style="background-color:white;" href={"https://map.kakao.com/link/search/" + found.uploadLocation} target="_blank">Click Here For Map</a>
 
-            <br>
-            <strong>Uploaded By : {found.userName}</strong>
-            <br>
-            <strong>Sort : {found.uploadSortFirst}/{found.uploadSortSecond}</strong>
-            <br>
-            <strong>Budget : {found.budget}</strong>
+                        <br>
+                        <strong>Uploaded By : {found.userName}</strong>
+                        <br>
+                        <strong>Budget : {found.budget}</strong>
+                    
+                    <br>
+                    <strong>Sort : {found.uploadSortFirst}/{found.uploadSortSecond}</strong>
+                    <IconButton 
+                    class="material-icons" 
+                    on:click={() => {
+                        $commentGoStop = true;
+                    }}>
+                        comment
+                    </IconButton>
+            </div>
+        {/if}
+    {/if}
+    {#if $uploadTypeChosen == "comments" && $uploadTypeChosen == found.uploadType}
+        <div class="comment">
+            This is a Comment
+            <IconButton class="material-icons">
+                comment
+            </IconButton>
         </div>
     {/if}
 {/each}
@@ -57,5 +76,9 @@
         border:solid 1px violet;
         background-color: violet;
         color:white;
+    }
+    .comment {
+        border:solid 1px violet;
+        background-color:pink;
     }
 </style>
