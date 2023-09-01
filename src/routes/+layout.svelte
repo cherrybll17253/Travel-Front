@@ -20,7 +20,7 @@
         Separator,
         Subheader
     } from "@smui/list";
-    import { loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentGoStop } from "$lib/store";
+    import { loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout } from "$lib/store";
     let open = false;
     let active = "";
 
@@ -38,7 +38,7 @@
     let uploadTypeCMenu: MenuSurface;
     let uploadMenu: MenuSurface;
     let searchMenu: MenuSurface;
-
+    let commentMenu: MenuSurface;
     let budgetSet = 0;
     let budgetFromo = 0;
     let budgetToo = 0;
