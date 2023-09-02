@@ -13,6 +13,7 @@
         commentAbt : '',
         commentContent : '',
         uploadType : '',
+        budget : 0
     }
     let commentMenu : MenuSurface;
     let commentT = ''
@@ -27,7 +28,6 @@
         await res.json();
         location.reload();
     }
-
     export let data:PageServerData;
     onMount(() => {
         console.log(data)
