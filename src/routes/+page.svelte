@@ -13,7 +13,6 @@
         commentAbt : '',
         commentContent : '',
         uploadType : '',
-        budget : 0
     }
     let commentMenu : MenuSurface;
     let commentT = ''
