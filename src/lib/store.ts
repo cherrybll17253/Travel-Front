@@ -7,3 +7,4 @@ export const budgetTo = writable<number>();
 export const uploadTypeChosen = writable<string>();
 export const commentAbout = writable<string>();
 export const commentText = writable<string>();
+export const lookingFor = writable<string>();

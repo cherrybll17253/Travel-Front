@@ -10,5 +10,6 @@ export interface Post {
     userName : string;
     budget: number;
     uploadType : string;
-    commentText : string;
+    commentContent : string;
+    commentAbt : string;
 }

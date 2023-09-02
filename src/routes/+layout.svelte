@@ -20,7 +20,7 @@
         Separator,
         Subheader
     } from "@smui/list";
-    import { loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout } from "$lib/store";
+    import { loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor} from "$lib/store";
     let open = false;
     let active = "";
 
@@ -60,10 +60,8 @@
         userName:'',
         budget:0,
         uploadType:'',
-        commentText:'',
     };
     async function uploadDB(){
-        console.log(obj)
         const res = await fetch('/api', {
             method:'POST',
             headers:{
@@ -203,36 +201,33 @@
     </Header>
     <Content>
         <List>
-            <Item
-                href="javascript:void(0)"
-                on:click={() => setActive("Star")}
-                activated={active === "Star"}
-            >
-                <Graphic class="material-icons" aria-hidden="true">star</Graphic>
-                <Text>Starred Destination</Text>
-            </Item>
-            <Item
-                href="javascript:void(0)"
-                on:click={() => setActive("upload")}
-                on:click={
-                    () => {
-                        if($loginInfo){ 
-                            uploadMenu.setOpen(true)
-                        }
-                        else{
-                            alert("You need to Log in to do that!")
+            {#if $loginInfo}
+                <Item
+                    href="javascript:void(0)"
+                    on:click={() => setActive("upload")}
+                    on:click={
+                        () => {
+                            if($loginInfo){ 
+                                uploadMenu.setOpen(true)
+                            }
+                            else{
+                                alert("You need to Log in to do that!")
+                            }
                         }
                     }
-                }
-                activated={active === "upload"}
-            >
-                <Graphic class="material-icons" aria-hidden="true">upload</Graphic>
-                <Text>Upload</Text>
-            </Item>
+                    activated={active === "upload"}
+                >
+                    <Graphic class="material-icons" aria-hidden="true">upload</Graphic>
+                    <Text>Upload</Text>
+                </Item>
+            {/if}
             <Item
                 href="javascript:void(0)"
-                on:click={() => setActive("FuploadTypeC")}
-                on:click={() => uploadTypeCMenu.setOpen(true)}
+                on:click={() => {
+                    setActive("FuploadTypeC");
+                    uploadTypeCMenu.setOpen(true);
+                    $lookingFor = '';
+                }}
                 activated={active === "FuploadTypeC"}
             >
                 <Graphic class="material-icons" aria-hidden="true">M/C</Graphic>
@@ -297,9 +292,6 @@
             </Item>
         </List>
         Selected : {$uploadTypeChosen}
-        <Button style="margin-top: 1em;" on:click={() => {uploadTypeCMenu.setOpen(false);}}>
-            Submit
-        </Button>
     </div>
 </MenuSurface>
 <MenuSurface bind:this={uploadMenu} anchorCorner="BOTTOM_LEFT">
@@ -346,7 +338,7 @@
                 </Select>
             {/if}
             <Textfield bind:value={obj.uploadLocation} label="Location(Be specific/ In Korean) : " style="width:100%;"/><br>
-            <Textfield bind:value={obj.budget} label="Needed Budget(Per person/Max amount) : " type="number"/><br>
+            <Textfield bind:value={obj.budget} style="width:100%;" label="Needed Budget(Per person/Max amount) : " type="number"/><br>
             {#if obj.uploadLocation != ""}
                 <a href={"https://map.kakao.com/link/search/" + obj.uploadLocation} target="_blank">Is this correct?</a>
                 <br>
