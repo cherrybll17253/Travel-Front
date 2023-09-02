@@ -8,3 +8,4 @@ export const uploadTypeChosen = writable<string>();
 export const commentAbout = writable<string>();
 export const commentText = writable<string>();
 export const lookingFor = writable<string>();
+export const ClookingFor = writable<string>();

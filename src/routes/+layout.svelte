@@ -20,7 +20,7 @@
         Separator,
         Subheader
     } from "@smui/list";
-    import { loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor} from "$lib/store";
+    import { loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor, ClookingFor} from "$lib/store";
     let open = false;
     let active = "";
 
@@ -227,6 +227,7 @@
                     setActive("FuploadTypeC");
                     uploadTypeCMenu.setOpen(true);
                     $lookingFor = '';
+                    $ClookingFor = '';
                 }}
                 activated={active === "FuploadTypeC"}
             >

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout, lookingFor, commentText } from "$lib/store";
+    import { loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout, lookingFor, commentText, ClookingFor } from "$lib/store";
     $uploadTypeChosen = "post"
     import IconButton, { Icon } from "@smui/icon-button";
     import Button, { Label } from "@smui/button";
@@ -64,12 +64,20 @@
                             alert("You need to login to do that!")
                         }
                     }}>
+                        keyboard
+                    </IconButton>
+                    <IconButton 
+                    class="material-icons" 
+                    on:click={() => {
+                        $uploadTypeChosen = "comments";
+                        $ClookingFor = found.uploadTitle;
+                    }}>
                         comment
                     </IconButton>
             </div>
         {/if}
     {/if}
-    {#if $uploadTypeChosen == "comments" && $uploadTypeChosen == found.uploadType}
+    {#if $uploadTypeChosen == "comments" && $uploadTypeChosen == found.uploadType && (($ClookingFor && $ClookingFor == found.commentAbt) || !$ClookingFor)}
         <div class="comment">
             <h1>Comment About :<br> {found.commentAbt}</h1>
             <hr>
