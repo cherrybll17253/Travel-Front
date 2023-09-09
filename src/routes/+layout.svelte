@@ -309,6 +309,7 @@
         <Textfield bind:value={obj.uploadText} label="Write a brief description : " style="width:100%;" input$maxlength={300} /><br>
         <Textfield bind:value={obj.uploadImageLink} label="Image Link : " style="width:100%;"/>
         <br>
+        <!-- svelte-ignore a11y-img-redundant-alt -->
         <img src={obj.uploadImageLink} height="300" width="300" alt="The image linked">
         <br>
         <Select bind:value={obj.uploadSortFirst} label="Select Menu">
