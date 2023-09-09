@@ -387,6 +387,7 @@
             on:click={() => {
                 searchMenu.setOpen(false); 
                 $searchedFor = searchText;
+                $uploadTypeChosen = "post";
                 searchSet = 1;
             }}
         >
