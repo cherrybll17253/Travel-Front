@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout, lookingFor, commentText, ClookingFor } from "$lib/store";
+    import { searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout, lookingFor, commentText, ClookingFor } from "$lib/store";
     $uploadTypeChosen = "post"
     import IconButton, { Icon } from "@smui/icon-button";
     import Button, { Label } from "@smui/button";
@@ -13,6 +13,10 @@
         commentAbt : '',
         commentContent : '',
         uploadType : '',
+    }
+    function isIncludingWords(word:string, sentence:string){
+        const wordsInSentence = sentence.split(' ')
+        return wordsInSentence.includes(word)
     }
     let commentMenu : MenuSurface;
     let commentT = ''
@@ -36,6 +40,7 @@
 {#each data.found as found}
     {#if $uploadTypeChosen == "post" && $uploadTypeChosen == found.uploadType && (($lookingFor && $lookingFor == found.uploadTitle) || !$lookingFor)}
         {#if found.budget <= $budgetTo && found.budget >= $budgetFrom || $budgetFrom == null}
+            {#if $searchedFor && isIncludingWords($searchedFor, found.uploadTitle) || $searchedFor && isIncludingWords($searchedFor, found.uploadText) || !$searchedFor}
             <div class="cell">
                     <img src={found.uploadImageLink} alt="placeholder" width=150>
                     <h1><u>{found.uploadTitle}</u></h1>
@@ -74,6 +79,7 @@
                         comment
                     </IconButton>
             </div>
+            {/if}
         {/if}
     {/if}
     {#if $uploadTypeChosen == "comments" && $uploadTypeChosen == found.uploadType && (($ClookingFor && $ClookingFor == found.commentAbt) || !$ClookingFor)}

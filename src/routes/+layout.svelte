@@ -20,7 +20,7 @@
         Separator,
         Subheader
     } from "@smui/list";
-    import { loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor, ClookingFor} from "$lib/store";
+    import { searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor, ClookingFor} from "$lib/store";
     let open = false;
     let active = "";
 
@@ -47,8 +47,6 @@
     let healingSort = ["With_Nature", "With_Nice_View", "Any"]
     let activitySort = ["Leisure_Sports", "Extreme_Sports", "Any"]
     let foodSort = ["Korean_Dish", "Non_Korean_Dish", "Any"]
-
-    let searchText = '';
     let searchSet = 0;
     const obj = {
         uploadTitle:'',
@@ -145,6 +143,7 @@
         await auth.signOut()
         location.reload()
     }
+    let searchText = ''
 </script>
 
 <TopAppBar style="background-color:violet;position:sticky;top:0;">
@@ -194,7 +193,7 @@
         </Section>
     </Row>
 </TopAppBar>
-<Drawer variant="modal" bind:open style="background-color:brown; width:40%; height:100%;">
+<Drawer variant="modal" bind:open style="background-color:violet; width:40%; height:100%;">
     <Header>
         <br><br><br><drawertitle><sub>UD<sub /><sup>GA<sup>JI</sup></sup></sub></drawertitle><Title />
         <Subtitle>Enjoy our services, adventurer!</Subtitle>
@@ -386,8 +385,8 @@
             style="margin-top: 1em;" 
             on:click={() => {
                 searchMenu.setOpen(false); 
-                searchSet = 1
-                console.log(`Searched : ${searchText}`);
+                $searchedFor = searchText;
+                searchSet = 1;
             }}
         >
             Submit
@@ -407,11 +406,11 @@
             budgetTo.set(999999999999) 
         }}>budget {$budgetFrom}₩ ~ {$budgetTo}₩</h6>
     {/if}
-    {#if searchText != "" && searchSet == 1}
+    {#if $searchedFor != "" && searchSet == 1}
         <h5>Searching for : </h5>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-        <h6 on:click={() => {searchText = ""; searchSet = 0}}>{searchText}</h6>
+        <h6 on:click={() => {$searchedFor = ""; searchSet = 0}}>{$searchedFor}</h6>
     {/if}
 </div>
 <slot />
