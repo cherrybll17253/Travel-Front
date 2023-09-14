@@ -56,7 +56,7 @@
                         <strong>Budget : {found.budget}</strong>
                     
                     <br>
-                    <strong>Sort : {found.uploadSortFirst}/{found.uploadSortSecond}</strong>
+                    <strong>Sort : {found.uploadSort}</strong>
                     <IconButton 
                     class="material-icons" 
                     on:click={() => {

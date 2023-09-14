@@ -4,8 +4,7 @@ export interface Post {
     uploadTitle: string;
     uploadText : string;
     uploadImageLink : string;
-    uploadSortFirst : string;
-    uploadSortSecond : string;
+    uploadSort : string;
     uploadLocation : string;
     userName : string;
     budget: number;

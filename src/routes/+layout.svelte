@@ -38,26 +38,24 @@
     let uploadTypeCMenu: MenuSurface;
     let uploadMenu: MenuSurface;
     let searchMenu: MenuSurface;
-    let commentMenu: MenuSurface;
+    let interestsMenu: MenuSurface;
+    
     let budgetSet = 0;
     let budgetFromo = 0;
     let budgetToo = 0;
 
-    let sorts = ["Healing", "Activity", "Food"]
-    let healingSort = ["With_Nature", "With_Nice_View", "Any"]
-    let activitySort = ["Leisure_Sports", "Extreme_Sports", "Any"]
-    let foodSort = ["Korean_Dish", "Non_Korean_Dish", "Any"]
+    let sorts = ["Entertaining","Cultural", "Educational", "Wildlife", "Religion", "Health", "Food", "Recreation", "Volunteer", "Art", "History"]
     let searchSet = 0;
     const obj = {
         uploadTitle:'',
         uploadText:'',
         uploadImageLink:'',
-        uploadSortFirst:'',
-        uploadSortSecond:'',
+        uploadSort:'',
         uploadLocation:'',
         userName:'',
         budget:0,
         uploadType:'',
+        userInterests : '',
     };
     async function uploadDB(){
         const res = await fetch('/api', {
@@ -144,6 +142,10 @@
         location.reload()
     }
     let searchText = ''
+
+    import Checkbox from '@smui/checkbox';
+    import FormField from '@smui/form-field';
+    let interestsSelected:string[] = [];
 </script>
 
 <TopAppBar style="background-color:violet;position:sticky;top:0;">
@@ -176,6 +178,14 @@
             on:click={() => searchMenu.setOpen(true)}
             >
                 search
+            </IconButton>
+            <IconButton
+                class="material-icons"
+                on:click={() => {
+                    interestsMenu.setOpen(true)
+                }}
+            >
+                settings
             </IconButton>
             {#if !$loginInfo}
                 <h3>Logged out</h3>
@@ -312,32 +322,12 @@
         <!-- svelte-ignore a11y-img-redundant-alt -->
         <img src={obj.uploadImageLink} height="300" width="300" alt="The image linked">
         <br>
-        <Select bind:value={obj.uploadSortFirst} label="Select Menu">
+        <Select bind:value={obj.uploadSort} label="Select Menu">
             {#each sorts as sort}
                 <Option value={sort}>{sort}</Option>
             {/each}
         </Select>
-        {#if obj.uploadSortFirst == "Healing"}
-                <Select bind:value={obj.uploadSortSecond} label="Select Menu">
-                    {#each healingSort as hsort}
-                        <Option value={hsort}>{hsort}</Option>
-                    {/each}
-                </Select>
-            {/if}
-            {#if obj.uploadSortFirst == "Activity"}
-                <Select bind:value={obj.uploadSortSecond} label="Select Menu">
-                    {#each activitySort as asort}
-                        <Option value={asort}>{asort}</Option>
-                    {/each}
-                </Select>
-            {/if}
-            {#if obj.uploadSortFirst == "Food"}
-                <Select bind:value={obj.uploadSortSecond} label="Select Menu">
-                    {#each foodSort as fsort}
-                        <Option value={fsort}>{fsort}</Option>
-                    {/each}
-                </Select>
-            {/if}
+        
             <Textfield bind:value={obj.uploadLocation} label="Location(Be specific/ In Korean) : " style="width:100%;"/><br>
             <Textfield bind:value={obj.budget} style="width:100%;" label="Needed Budget(Per person/Max amount) : " type="number"/><br>
             {#if obj.uploadLocation != ""}
@@ -352,10 +342,8 @@
                 if( obj.uploadTitle.length > 4
                 &&  obj.uploadText.length > 10
                 &&  obj.uploadImageLink.length > 6
-                &&  obj.uploadSortFirst != ""
-                &&  obj.uploadSortSecond != ""
+                &&  obj.uploadSort != ""
                 &&  obj.uploadLocation.length > 2
-                
                 )   {
                     uploadMenu.setOpen(false);
                     obj.uploadType = "post"
@@ -366,6 +354,46 @@
                 Submit
             </Button>
 
+    </div>
+</MenuSurface>
+<MenuSurface bind:this={interestsMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;">
+    <div
+        style="width:100%; position:relative; height:700px;"
+    >
+        <IconButton 
+            class="material-icon" 
+            style="left:80%;"
+            on:click={() => {
+                interestsMenu.setOpen(false); 
+            }}
+        >X</IconButton>
+        <br>
+        <h1>Select Your Interests</h1>
+        {#each sorts as sort}
+            <FormField>
+                <Checkbox
+                    bind:group={interestsSelected}
+                    value={sort}
+                />
+                <span slot="label">
+                    {sort}
+                </span>
+            </FormField>
+        {/each}
+        <h2>It's IRREVERSIBLE</h2>
+        <br>
+        <Button 
+            style="margin-top: 1em;" 
+            on:click={async () => {
+                interestsMenu.setOpen(false);
+                obj.userInterests = interestsSelected.join(",")
+                obj.uploadType = "userInfo"
+                obj.userName = $loginInfo.displayName || ''
+                await uploadDB()
+            }}
+        >
+            Submit
+        </Button>
     </div>
 </MenuSurface>
 <MenuSurface bind:this={searchMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;">
@@ -395,6 +423,7 @@
         </Button>
     </div>
 </MenuSurface>
+
 <div class="filtercontainer">
     {#if budgetSet == 1}
         <h5>Filters active : </h5>
