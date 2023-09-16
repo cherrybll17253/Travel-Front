@@ -44,7 +44,7 @@
     let budgetFromo = 0;
     let budgetToo = 0;
 
-    let sorts = ["Entertaining","Cultural", "Educational", "Wildlife", "Religion", "Health", "Food", "Recreation", "Volunteer", "Art", "History"]
+    let sorts = ["Entertaining","Cultural", "Educational", "Wildlife", "Religion", "Health", "Food", "Recreation", "Volunteer", "Art", "History", "View"]
     let searchSet = 0;
     const obj = {
         uploadTitle:'',
@@ -259,7 +259,7 @@
 </Drawer>
 <Scrim />
 
-<MenuSurface bind:this={budgetMenu} anchorCorner="BOTTOM_RIGHT">
+<MenuSurface bind:this={budgetMenu} anchorCorner="BOTTOM_RIGHT" style="position:fixed;top:0;">
     <div
         style="margin: 1em; display: flex; flex-direction: column; align-items: flex-end;"
     >
@@ -283,7 +283,7 @@
         </Button>
     </div>
 </MenuSurface>
-<MenuSurface bind:this={uploadTypeCMenu} anchorCorner="BOTTOM_LEFT">
+<MenuSurface bind:this={uploadTypeCMenu} anchorCorner="BOTTOM_LEFT" style="position:fixed;top:0;">
     <div
         style="margin: 1em; display: flex; flex-direction: column; align-items: flex-end;"
     >
@@ -304,9 +304,9 @@
         Selected : {$uploadTypeChosen}
     </div>
 </MenuSurface>
-<MenuSurface bind:this={uploadMenu} anchorCorner="BOTTOM_LEFT">
+<MenuSurface bind:this={uploadMenu} anchorCorner="BOTTOM_LEFT" style="position:fixed;top:0;">
     <div
-        style="width:500px; height:800px; overflow:hidden;"
+        style="width:500px; height:900px; overflow:hidden;"
     >
         <IconButton 
             class="material-icon" 
@@ -356,7 +356,7 @@
 
     </div>
 </MenuSurface>
-<MenuSurface bind:this={interestsMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;">
+<MenuSurface bind:this={interestsMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%; position:fixed;top:0;">
     <div
         style="width:100%; position:relative; height:700px;"
     >
@@ -396,7 +396,7 @@
         </Button>
     </div>
 </MenuSurface>
-<MenuSurface bind:this={searchMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;">
+<MenuSurface bind:this={searchMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;position:fixed;top:0;">
     <div
         style="width:100%; position:relative; height:160px;"
     >
