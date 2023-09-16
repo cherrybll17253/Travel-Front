@@ -8,15 +8,12 @@
     import Textfield from '@smui/textfield'; 
     import Select, { Option } from '@smui/select';
     import type { PageServerData } from "./$types";
+    
     let obj = {
         userName : '',
         commentAbt : '',
         commentContent : '',
         uploadType : '',
-    }
-    function isIncludingWords(word:string, sentence:string){
-        const wordsInSentence = sentence.split(' ')
-        return wordsInSentence.includes(word)
     }
     let commentMenu : MenuSurface;
     let commentT = ''

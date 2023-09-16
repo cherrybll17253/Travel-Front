@@ -429,6 +429,7 @@
             on:click={() => {
                 searchMenu.setOpen(false); 
                 $searchedFor = searchText;
+                searchText = "";
                 $uploadTypeChosen = "post";
                 searchSet = 1;
             }}
