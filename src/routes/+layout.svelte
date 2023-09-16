@@ -385,11 +385,17 @@
         <Button 
             style="margin-top: 1em;" 
             on:click={async () => {
-                interestsMenu.setOpen(false);
-                obj.userInterests = interestsSelected.join(",")
-                obj.uploadType = "userInfo"
-                obj.userName = $loginInfo.displayName || ''
-                await uploadDB()
+                if($loginInfo){
+                    interestsMenu.setOpen(false);
+                    obj.userInterests = interestsSelected.join(",")
+                    obj.uploadType = "userInfo"
+                    obj.userName = $loginInfo.displayName || ''
+                    console.log(obj.userInterests)
+                    await uploadDB()
+                }
+                else{
+                    alert("You need to log in to do that!")
+                }
             }}
         >
             Submit
