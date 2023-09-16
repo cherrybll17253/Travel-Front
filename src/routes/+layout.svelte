@@ -44,7 +44,7 @@
     let budgetFromo = 0;
     let budgetToo = 0;
 
-    let sorts = ["Entertaining","Cultural", "Educational", "Wildlife", "Religion", "Health", "Food", "Recreation", "Volunteer", "Art", "History", "View"]
+    let sorts = ["Fashion","Entertaining","Cultural", "Educational", "Wildlife", "Religion", "Health", "Food", "Recreation", "Volunteer", "Art", "History", "View"]
     let searchSet = 0;
     const obj = {
         uploadTitle:'',
@@ -274,10 +274,18 @@
         <Button 
         style="margin-top: 1em;" 
         on:click={() => {
-            budgetMenu.setOpen(false); 
-            budgetSet = 1;
-            budgetFrom.set(budgetFromo) 
-            budgetTo.set(budgetToo)
+            if(budgetFromo <= budgetToo && budgetFromo >= 0){    
+                budgetMenu.setOpen(false); 
+                budgetSet = 1;
+                budgetFrom.set(budgetFromo) 
+                budgetTo.set(budgetToo)
+            }
+            else if(budgetFromo >= budgetToo){
+                alert("From(₩) Needs To Be Lower Than To(₩).")
+            }
+            else if(budgetFromo < 0){
+                alert("Numbers cannot be a negative number.")
+            }
         }}>
             Submit
         </Button>

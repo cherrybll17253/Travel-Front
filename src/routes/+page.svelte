@@ -35,12 +35,14 @@
     onMount(() => {
         console.log(data)
     })
+    let searching = ""
 </script>
 
 {#each data.found as found}
     {#if $uploadTypeChosen == "post" && $uploadTypeChosen == found.uploadType && (($lookingFor && $lookingFor == found.uploadTitle) || !$lookingFor)}
         {#if found.budget <= $budgetTo && found.budget >= $budgetFrom || $budgetFrom == null}
-            {#if $searchedFor && isIncludingWords($searchedFor, found.uploadTitle) || $searchedFor && isIncludingWords($searchedFor, found.uploadText) || !$searchedFor}
+            <div class="invis">{searching = $searchedFor.toLowerCase()}</div>
+            {#if $searchedFor && (found.uploadTitle).toLowerCase().includes(searching) || $searchedFor && (found.uploadText).toLowerCase().includes(searching) || !$searchedFor}
             <div class="cell">
                     <img src={found.uploadImageLink} alt="placeholder" width=150>
                     <h1><u>{found.uploadTitle}</u></h1>
@@ -172,5 +174,8 @@
     .comment h1{
         color:coral;
         background-color: gray;
+    }
+    .invis{
+        display:none;
     }
 </style>
