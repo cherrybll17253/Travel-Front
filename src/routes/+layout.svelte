@@ -179,6 +179,7 @@
             >
                 search
             </IconButton>
+            
             <IconButton
                 class="material-icons"
                 on:click={() => {
@@ -187,6 +188,7 @@
             >
                 settings
             </IconButton>
+
             {#if !$loginInfo}
                 <h3>Logged out</h3>
                 <IconButton 

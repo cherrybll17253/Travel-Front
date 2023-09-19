@@ -11,4 +11,5 @@ export interface Post {
     uploadType : string;
     commentContent : string;
     commentAbt : string;
+    userInterests : string;
 }

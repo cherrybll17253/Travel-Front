@@ -33,51 +33,56 @@
         console.log(data)
     })
     let searching = ""
+    let userInterest = ""
 </script>
-
 {#each data.found as found}
+    {#if found.uploadType == "userInfo" && $loginInfo && found.userName == $loginInfo.displayName}
+        <div class="invis">{userInterest = found.userInterests}</div>
+    {/if}
     {#if $uploadTypeChosen == "post" && $uploadTypeChosen == found.uploadType && (($lookingFor && $lookingFor == found.uploadTitle) || !$lookingFor)}
         {#if found.budget <= $budgetTo && found.budget >= $budgetFrom || $budgetFrom == null}
             <div class="invis">{searching = $searchedFor.toLowerCase()}</div>
             {#if $searchedFor && (found.uploadTitle).toLowerCase().includes(searching) || $searchedFor && (found.uploadText).toLowerCase().includes(searching) || !$searchedFor}
-            <div class="cell">
-                    <img src={found.uploadImageLink} alt="placeholder" width=150>
-                    <h1><u>{found.uploadTitle}</u></h1>
-                    <div id="utext">
-                        {found.uploadText}
-                    </div>
-                    <br>
-                        <a style="background-color:white;" href={"https://map.kakao.com/link/search/" + found.uploadLocation} target="_blank">Click Here For Map</a>
+                {#if userInterest != "" && userInterest.includes("Food")|| userInterest == ""}
+                    <div class="cell">
+                        <img src={found.uploadImageLink} alt="placeholder" width=150>
+                        <h1><u>{found.uploadTitle}</u></h1>
+                        <div id="utext">
+                            {found.uploadText}
+                        </div>
+                        <br>
+                            <a style="background-color:white;" href={"https://map.kakao.com/link/search/" + found.uploadLocation} target="_blank">Click Here For Map</a>
 
+                            <br>
+                            <strong>Uploaded By : {found.userName}</strong>
+                            <br>
+                            <strong>Budget : {found.budget}</strong>
+                        
                         <br>
-                        <strong>Uploaded By : {found.userName}</strong>
-                        <br>
-                        <strong>Budget : {found.budget}</strong>
-                    
-                    <br>
-                    <strong>Sort : {found.uploadSort}</strong>
-                    <IconButton 
-                    class="material-icons" 
-                    on:click={() => {
-                        if($loginInfo){
-                            commentMenu.setOpen(true)
-                            $commentAbout = found.uploadTitle;
-                        }
-                        else{
-                            alert("You need to login to do that!")
-                        }
-                    }}>
-                        keyboard
-                    </IconButton>
-                    <IconButton 
-                    class="material-icons" 
-                    on:click={() => {
-                        $uploadTypeChosen = "comments";
-                        $ClookingFor = found.uploadTitle;
-                    }}>
-                        comment
-                    </IconButton>
-            </div>
+                        <strong>Sort : {found.uploadSort}</strong>
+                        <IconButton 
+                        class="material-icons" 
+                        on:click={() => {
+                            if($loginInfo){
+                                commentMenu.setOpen(true)
+                                $commentAbout = found.uploadTitle;
+                            }
+                            else{
+                                alert("You need to login to do that!")
+                            }
+                        }}>
+                            keyboard
+                        </IconButton>
+                        <IconButton 
+                        class="material-icons" 
+                        on:click={() => {
+                            $uploadTypeChosen = "comments";
+                            $ClookingFor = found.uploadTitle;
+                        }}>
+                            comment
+                        </IconButton>
+                    </div>
+                {/if}
             {/if}
         {/if}
     {/if}
