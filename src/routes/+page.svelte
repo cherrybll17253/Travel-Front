@@ -42,7 +42,6 @@
         {#if found.budget <= $budgetTo && found.budget >= $budgetFrom || $budgetFrom == null}
             <div class="invis">{searching = $searchedFor.toLowerCase()}</div>
             {#if $searchedFor && (found.uploadTitle).toLowerCase().includes(searching) || $searchedFor && (found.uploadText).toLowerCase().includes(searching) || !$searchedFor}
-                {#if userInterest != "" && userInterest.includes("") || $searchedFor || userInterest ==""}
                     <div class="cell">
                         <img src={found.uploadImageLink} alt="placeholder" width=150>
                         <h1><u>{found.uploadTitle}</u></h1>
@@ -81,7 +80,6 @@
                             comment
                         </IconButton>
                     </div>
-                {/if}
             {/if}
         {/if}
     {/if}
@@ -105,13 +103,8 @@
 {/each}
 {#each data.foundB as found}
     {#if $loginInfo && found.userName == $loginInfo.displayName && found.userInterests != "" && !$interestSetBool}
-        {$interestSetBool = "true"}
+        <div class="invis"> {$interestSetBool = "true"}</div>
     {/if}
-    <div class="cell">
-        {found.uploadType}<br>
-        {found.userName}<br>
-        {found.userInterests}
-    </div>
 {/each}
 <MenuSurface bind:this={commentMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;position:fixed;top:0;">
     <div style="width:100%; position:relative; height:fit-content;">

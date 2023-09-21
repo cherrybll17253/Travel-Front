@@ -147,7 +147,6 @@
     import FormField from '@smui/form-field';
     let interestsSelected:string[] = [];
 </script>
-
 <TopAppBar style="background-color:violet;position:sticky;top:0;">
     <Row>
         <Section align="start" toolbar>
@@ -183,13 +182,10 @@
             <IconButton
                 class="material-icons"
                 on:click={() => {
-                    if(!$interestSetBool || $interestSetBool == "false")
-                        interestsMenu.setOpen(true)
-                    else
-                        alert("You have already put in your interests.")
+                    interestsMenu.setOpen(true)
                 }}
             >
-                settings
+                book
             </IconButton>
 
             {#if !$loginInfo}
