@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout, lookingFor, commentText, ClookingFor } from "$lib/store";
+    import { interestSetBool, searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout, lookingFor, commentText, ClookingFor } from "$lib/store";
     $uploadTypeChosen = "post"
     import IconButton, { Icon } from "@smui/icon-button";
     import Button, { Label } from "@smui/button";
@@ -35,15 +35,14 @@
     let searching = ""
     let userInterest = ""
 </script>
-{#each data.found as found}
+{#each data.foundA as found}
     {#if found.uploadType == "userInfo" && $loginInfo && found.userName == $loginInfo.displayName}
         <div class="invis">{userInterest = found.userInterests}</div>
-    {/if}
-    {#if $uploadTypeChosen == "post" && $uploadTypeChosen == found.uploadType && (($lookingFor && $lookingFor == found.uploadTitle) || !$lookingFor)}
+    {:else if $uploadTypeChosen == "post" && $uploadTypeChosen == found.uploadType && (($lookingFor && $lookingFor == found.uploadTitle) || !$lookingFor)}
         {#if found.budget <= $budgetTo && found.budget >= $budgetFrom || $budgetFrom == null}
             <div class="invis">{searching = $searchedFor.toLowerCase()}</div>
             {#if $searchedFor && (found.uploadTitle).toLowerCase().includes(searching) || $searchedFor && (found.uploadText).toLowerCase().includes(searching) || !$searchedFor}
-                {#if userInterest != "" && userInterest.includes("Food")|| userInterest == ""}
+                {#if userInterest != "" && userInterest.includes("") || $searchedFor || userInterest ==""}
                     <div class="cell">
                         <img src={found.uploadImageLink} alt="placeholder" width=150>
                         <h1><u>{found.uploadTitle}</u></h1>
@@ -103,6 +102,16 @@
             </button>
         </div>
     {/if}
+{/each}
+{#each data.foundB as found}
+    {#if $loginInfo && found.userName == $loginInfo.displayName && found.userInterests != "" && !$interestSetBool}
+        {$interestSetBool = "true"}
+    {/if}
+    <div class="cell">
+        {found.uploadType}<br>
+        {found.userName}<br>
+        {found.userInterests}
+    </div>
 {/each}
 <MenuSurface bind:this={commentMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;position:fixed;top:0;">
     <div style="width:100%; position:relative; height:fit-content;">

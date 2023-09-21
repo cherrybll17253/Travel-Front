@@ -14,11 +14,22 @@ export const GET:RequestHandler = async ({request}) => {
 
 export const POST:RequestHandler = async ({request}) => {
     const json = await request.json();
-    const collection: Collection<Post> = db.collection('post');
-    const result = await collection.insertOne(json)
-    return new Response(JSON.stringify(result), {
-        headers:{
-            'Content-Type':'application/json'
-        }
-    });
+    const collectionA: Collection<Post> = db.collection('post');
+    const collectionB: Collection<Post> = db.collection('user');
+    if(json.uploadType == "post" || json.uploadType == "comments"){
+        const resultA = await collectionA.insertOne(json)
+        return new Response(JSON.stringify(resultA), {
+            headers:{
+                'Content-Type':'application/json'
+            }
+        });
+    }
+    else{
+        const resultB = await collectionB.insertOne(json)
+        return new Response(JSON.stringify(resultB), {
+            headers:{
+                'Content-Type':'application/json'
+            }
+        });
+    }
 };

@@ -20,7 +20,7 @@
         Separator,
         Subheader
     } from "@smui/list";
-    import { searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor, ClookingFor} from "$lib/store";
+    import { interestSetBool, searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor, ClookingFor} from "$lib/store";
     let open = false;
     let active = "";
 
@@ -179,11 +179,14 @@
             >
                 search
             </IconButton>
-            
+                
             <IconButton
                 class="material-icons"
                 on:click={() => {
-                    interestsMenu.setOpen(true)
+                    if(!$interestSetBool || $interestSetBool == "false")
+                        interestsMenu.setOpen(true)
+                    else
+                        alert("You have already put in your interests.")
                 }}
             >
                 settings
