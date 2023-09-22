@@ -20,7 +20,7 @@
         Separator,
         Subheader
     } from "@smui/list";
-    import { interestSetBool, searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor, ClookingFor} from "$lib/store";
+    import { searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor, ClookingFor} from "$lib/store";
     let open = false;
     let active = "";
 

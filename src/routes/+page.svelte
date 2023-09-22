@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { interestSetBool, searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout, lookingFor, commentText, ClookingFor } from "$lib/store";
+    import {  searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout, lookingFor, commentText, ClookingFor } from "$lib/store";
     $uploadTypeChosen = "post"
     import IconButton, { Icon } from "@smui/icon-button";
     import Button, { Label } from "@smui/button";
@@ -99,11 +99,6 @@
                 Go to post
             </button>
         </div>
-    {/if}
-{/each}
-{#each data.foundB as found}
-    {#if $loginInfo && found.userName == $loginInfo.displayName && found.userInterests != "" && !$interestSetBool}
-        <div class="invis"> {$interestSetBool = "true"}</div>
     {/if}
 {/each}
 <MenuSurface bind:this={commentMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;position:fixed;top:0;">

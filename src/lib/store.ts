@@ -10,4 +10,3 @@ export const commentText = writable<string>();
 export const lookingFor = writable<string>();
 export const ClookingFor = writable<string>();
 export const searchedFor = writable<string>("");
-export let interestSetBool = writable<string>("");
