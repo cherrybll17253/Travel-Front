@@ -76,7 +76,8 @@
         getAuth,
         onAuthStateChanged,
         setPersistence,
-        signInWithPopup
+        signInWithPopup,
+        signInWithRedirect
     } from 'firebase/auth';
     import type { User } from 'firebase/auth'
     import {
@@ -91,6 +92,7 @@
     const firebaseConfig = data.firebaseConfig;
     
     onMount(() => {
+        console.log(data)
         console.log("onMount", firebaseConfig)
         if(getApps().length === 0){
             initializeApp(firebaseConfig);
@@ -113,10 +115,11 @@
         provider.addScope('https://www.googleapis.com/auth/contacts.readonly'); 
         try{
             await setPersistence(auth, browserSessionPersistence); 
-            const result = await signInWithPopup(auth, provider); 
+            const result = await signInWithRedirect(auth, provider); 
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential?.accessToken;
-            const user = result.user;
+            const user = result.user
+            
             return { token , user};
         } catch(error){
             if(error instanceof FirebaseError){
@@ -146,7 +149,14 @@
     import Checkbox from '@smui/checkbox';
     import FormField from '@smui/form-field';
     let interestsSelected:string[] = [];
+    let interestSetBool = ""
 </script>
+{#each data.foundB as found}
+    {#if $loginInfo && found.userName == $loginInfo.displayName}
+        {@const interestSetBool = "true"}
+        hah
+    {/if}
+{/each}
 <TopAppBar style="background-color:violet;position:sticky;top:0;">
     <Row>
         <Section align="start" toolbar>
@@ -178,16 +188,16 @@
             >
                 search
             </IconButton>
-                
-            <IconButton
-                class="material-icons"
-                on:click={() => {
-                    interestsMenu.setOpen(true)
-                }}
-            >
-                book
-            </IconButton>
-
+            {#if interestSetBool == ""}
+                <IconButton
+                    class="material-icons"
+                    on:click={() => {
+                        interestsMenu.setOpen(true)
+                    }}
+                >
+                    book
+                </IconButton>
+            {/if}
             {#if !$loginInfo}
                 <h3>Logged out</h3>
                 <IconButton 
@@ -477,5 +487,8 @@
         margin-left:50px;   
         display:inline-block;
         color:burlywood;
+    }
+    .invis{
+        display:none;
     }
 </style>

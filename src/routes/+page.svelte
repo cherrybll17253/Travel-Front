@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import {  searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout, lookingFor, commentText, ClookingFor } from "$lib/store";
+    import { searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout, lookingFor, commentText, ClookingFor } from "$lib/store";
     $uploadTypeChosen = "post"
     import IconButton, { Icon } from "@smui/icon-button";
     import Button, { Label } from "@smui/button";
@@ -31,12 +31,13 @@
     export let data:PageServerData;
     onMount(() => {
         console.log(data)
+        console.log($loginInfo)
     })
     let searching = ""
     let userInterest = ""
 </script>
 {#each data.foundA as found}
-    {#if found.uploadType == "userInfo" && $loginInfo && found.userName == $loginInfo.displayName}
+    {#if $loginInfo && found.uploadType == "userInfo" && found.userName == $loginInfo.displayName}
         <div class="invis">{userInterest = found.userInterests}</div>
     {:else if $uploadTypeChosen == "post" && $uploadTypeChosen == found.uploadType && (($lookingFor && $lookingFor == found.uploadTitle) || !$lookingFor)}
         {#if found.budget <= $budgetTo && found.budget >= $budgetFrom || $budgetFrom == null}
@@ -44,7 +45,11 @@
             {#if $searchedFor && (found.uploadTitle).toLowerCase().includes(searching) || $searchedFor && (found.uploadText).toLowerCase().includes(searching) || !$searchedFor}
                     <div class="cell">
                         <img src={found.uploadImageLink} alt="placeholder" width=150>
-                        <h1><u>{found.uploadTitle}</u></h1>
+                        {#if $loginInfo && found.userName == $loginInfo.displayName}
+                            <h1 style="background-color:purple;"><u>{found.uploadTitle}</u></h1>
+                        {:else}
+                            <h1><u>{found.uploadTitle}</u></h1>
+                        {/if}
                         <div id="utext">
                             {found.uploadText}
                         </div>
@@ -84,23 +89,30 @@
         {/if}
     {/if}
     {#if $uploadTypeChosen == "comments" && $uploadTypeChosen == found.uploadType && (($ClookingFor && $ClookingFor == found.commentAbt) || !$ClookingFor)}
-        <div class="comment">
+        
+    <div class="comment">
+        {#if $loginInfo && found.userName == $loginInfo.displayName}
+            <h1 style="background-color:purple;">Comment About :<br> {found.commentAbt}</h1>
+        {:else}
             <h1>Comment About :<br> {found.commentAbt}</h1>
-            <hr>
-            Written by : {found.userName}
-            <hr>
-            {found.commentContent}
-            <hr>
-            <button 
-                on:click={() => {
-                    $uploadTypeChosen = "post"
-                    $lookingFor = found.commentAbt
-                }}>
-                Go to post
-            </button>
-        </div>
+        {/if}
+        
+        <hr>
+        Written by : {found.userName}
+        <hr>
+        {found.commentContent}
+        <hr>
+        <button 
+            on:click={() => {
+                $uploadTypeChosen = "post"
+                $lookingFor = found.commentAbt
+            }}>
+            Go to post
+        </button>
+    </div>
     {/if}
 {/each}
+
 <MenuSurface bind:this={commentMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;position:fixed;top:0;">
     <div style="width:100%; position:relative; height:fit-content;">
         <IconButton 
