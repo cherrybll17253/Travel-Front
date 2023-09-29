@@ -151,12 +151,6 @@
     let interestsSelected:string[] = [];
     let interestSetBool = ""
 </script>
-{#each data.foundB as found}
-    {#if $loginInfo && found.userName == $loginInfo.displayName}
-        {@const interestSetBool = "true"}
-        hah
-    {/if}
-{/each}
 <TopAppBar style="background-color:violet;position:sticky;top:0;">
     <Row>
         <Section align="start" toolbar>
@@ -188,11 +182,12 @@
             >
                 search
             </IconButton>
-            {#if interestSetBool == ""}
+            {#if $loginInfo && !data.foundB.find(v => v.userName === $loginInfo.displayName)}
                 <IconButton
                     class="material-icons"
                     on:click={() => {
-                        interestsMenu.setOpen(true)
+                        if(interestSetBool == "")
+                            interestsMenu.setOpen(true)
                     }}
                 >
                     book
