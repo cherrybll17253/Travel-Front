@@ -11,3 +11,4 @@ export const lookingFor = writable<string>();
 export const ClookingFor = writable<string>();
 export const searchedFor = writable<string>("");
 export const onlyI = writable<boolean>(false);
+export const Iarray = writable<Array<String>>([])

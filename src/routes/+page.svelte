@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { onlyI, searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout, lookingFor, commentText, ClookingFor } from "$lib/store";
+    import { Iarray, onlyI, searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout, lookingFor, commentText, ClookingFor } from "$lib/store";
     $uploadTypeChosen = "post"
     import IconButton, { Icon } from "@smui/icon-button";
     import Button, { Label } from "@smui/button";
@@ -8,7 +8,6 @@
     import Textfield from '@smui/textfield'; 
     import Select, { Option } from '@smui/select';
     import type { PageServerData } from "./$types";
-    
     let obj = {
         userName : '',
         commentAbt : '',
@@ -29,16 +28,6 @@
         location.reload();
     }
     export let data:PageServerData;
-    let userInterest = "";
-    let Iarray : Array<String> = [];
-    if ($loginInfo) {
-        const foundUser = data.foundB.find(v => v.userName === "ZeeKee _");
-        if (foundUser) {
-            userInterest = foundUser.userInterests;
-            Iarray = userInterest.split(",");
-            console.log("Iarray :" ,Iarray);
-        }
-    }
     let searching = ""
     
 </script>
@@ -50,7 +39,7 @@
                 $searchedFor && (found.uploadText).toLowerCase().includes(searching) || 
                 !$searchedFor
             }
-                {#if !$onlyI || $onlyI && Iarray.includes(found.uploadSort) }
+                {#if !$onlyI || $onlyI && $Iarray.includes(found.uploadSort) }
                     <div class="cell">
                         <img src={found.uploadImageLink} alt="placeholder" width=150>
                         {#if $loginInfo && found.userName == $loginInfo.displayName}

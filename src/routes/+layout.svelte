@@ -20,7 +20,7 @@
         Separator,
         Subheader
     } from "@smui/list";
-    import { onlyI, searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor, ClookingFor} from "$lib/store";
+    import { Iarray, onlyI, searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor, ClookingFor} from "$lib/store";
     $onlyI = false;
     let open = false;
     let active = "";
@@ -139,6 +139,7 @@
         location.reload()
     }
     let searchText = ''
+    let userInterest = ''
 
     import Checkbox from '@smui/checkbox';
     import FormField from '@smui/form-field';
@@ -188,7 +189,9 @@
             {#if !$loginInfo}
                 <h3>Logged out</h3>
                 <IconButton 
-                    on:click={async () => await login(firebaseConfig)}
+                    on:click={async () => {
+                        await login(firebaseConfig)
+                    }}
                     class="material-icons"
                 >login</IconButton>
             {:else}
@@ -257,9 +260,25 @@
             <Item
                 href="javascript:void(0)"
                 on:click={() => {
-                    setActive("Finterest")
-                    if($onlyI === false){
-                        $onlyI = true;
+                    if($loginInfo && data.foundB.find(v => v.userName === $loginInfo.displayName)){
+                        setActive("Finterest")
+                        if($onlyI === false){
+                            $onlyI = true;
+                        }
+                        if ($loginInfo) {
+                            const foundUser = data.foundB.find(v => v.userName === $loginInfo.displayName);
+                            if (foundUser) {
+                                userInterest = foundUser.userInterests;
+                                $Iarray = userInterest.split(",");
+                                console.log("Iarray :" ,$Iarray);
+                            }
+                        }
+                    }
+                    else if(!$loginInfo){
+                        alert("You need to log in to do that!")
+                    }
+                    else if(!data.foundB.find(v => v.userName === $loginInfo.displayName)){
+                        alert("You need to enter your interest to do that!")
                     }
                 }}
                 activated={active === "Finterest"}
