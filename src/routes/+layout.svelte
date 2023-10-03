@@ -20,7 +20,8 @@
         Separator,
         Subheader
     } from "@smui/list";
-    import { searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor, ClookingFor} from "$lib/store";
+    import { onlyI, searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor, ClookingFor} from "$lib/store";
+    $onlyI = false;
     let open = false;
     let active = "";
 
@@ -39,7 +40,6 @@
     let uploadMenu: MenuSurface;
     let searchMenu: MenuSurface;
     let interestsMenu: MenuSurface;
-    
     let budgetSet = 0;
     let budgetFromo = 0;
     let budgetToo = 0;
@@ -92,8 +92,6 @@
     const firebaseConfig = data.firebaseConfig;
     
     onMount(() => {
-        console.log(data)
-        console.log("onMount", firebaseConfig)
         if(getApps().length === 0){
             initializeApp(firebaseConfig);
         }        
@@ -119,7 +117,7 @@
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential?.accessToken;
             const user = result.user
-            
+
             return { token , user};
         } catch(error){
             if(error instanceof FirebaseError){
@@ -127,16 +125,12 @@
                 const message = error.message;
                 const email = error.customData?.email;
                 const credential = GoogleAuthProvider.credentialFromError(error);
-                console.log({
-                    code, message, email, credential
-                });
             } else {
                 console.log(error);
             }
         }
     }
     const logout = async(firebaseConfig:FirebaseOptions) => {
-        console.log(JSON.stringify(obj) + JSON.stringify($loginInfo))
         if(getApps().length === 0){
             initializeApp(firebaseConfig);
         }
@@ -149,7 +143,6 @@
     import Checkbox from '@smui/checkbox';
     import FormField from '@smui/form-field';
     let interestsSelected:string[] = [];
-    let interestSetBool = ""
 </script>
 <TopAppBar style="background-color:violet;position:sticky;top:0;">
     <Row>
@@ -186,8 +179,7 @@
                 <IconButton
                     class="material-icons"
                     on:click={() => {
-                        if(interestSetBool == "")
-                            interestsMenu.setOpen(true)
+                        interestsMenu.setOpen(true)
                     }}
                 >
                     book
@@ -253,12 +245,27 @@
             <Subheader tag="h6">Filter</Subheader>
             <Item
                 href="javascript:void(0)"
-                on:click={() => setActive("Fbudget")}
-                on:click={() => budgetMenu.setOpen(true)}
+                on:click={() => {
+                    setActive("Fbudget")
+                    budgetMenu.setOpen(true)
+                }}
                 activated={active === "Fbudget"}
             >
                 <Graphic class="material-icons" aria-hidden="true">₩</Graphic>
                 <Text>By budget</Text>
+            </Item>
+            <Item
+                href="javascript:void(0)"
+                on:click={() => {
+                    setActive("Finterest")
+                    if($onlyI === false){
+                        $onlyI = true;
+                    }
+                }}
+                activated={active === "Finterest"}
+            >
+                <Graphic class="material-icons" aria-hidden="true">book</Graphic>
+                <Text>Only Interests</Text>
             </Item>
         </List>
     </Content>
@@ -404,7 +411,6 @@
                     obj.userInterests = interestsSelected.join(",")
                     obj.uploadType = "userInfo"
                     obj.userName = $loginInfo.displayName || ''
-                    console.log(obj.userInterests)
                     await uploadDB()
                 }
                 else{
@@ -446,7 +452,7 @@
 </MenuSurface>
 
 <div class="filtercontainer">
-    {#if budgetSet == 1}
+    {#if budgetSet == 1 || $onlyI}
         <h5>Filters active : </h5>
     {/if}
     {#if budgetSet == 1}
@@ -457,6 +463,11 @@
             budgetFrom.set(0);
             budgetTo.set(999999999999) 
         }}>budget {$budgetFrom}₩ ~ {$budgetTo}₩</h6>
+    {/if}
+    {#if $onlyI}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+        <h6 on:click={() => {$onlyI = false;}}>Only Interests</h6>
     {/if}
     {#if $searchedFor != "" && searchSet == 1}
         <h5>Searching for : </h5>
