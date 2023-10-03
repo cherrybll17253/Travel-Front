@@ -301,24 +301,25 @@
                 budgetMenu.setOpen(false); 
             }}
         >X</IconButton>
-        <Textfield bind:value={budgetFromo} label="From(₩) : " />
-        <Textfield bind:value={budgetToo} label="To(₩) : "/>
+        <Textfield type="number" bind:value={budgetFromo} label="From(₩) : " />
+        <Textfield type="number" bind:value={budgetToo} label="To(₩) : "/>
         <Button 
-        style="margin-top: 1em;" 
-        on:click={() => {
-            if(budgetFromo <= budgetToo && budgetFromo >= 0){    
-                budgetMenu.setOpen(false); 
-                budgetSet = 1;
-                budgetFrom.set(budgetFromo) 
-                budgetTo.set(budgetToo)
-            }
-            else if(budgetFromo >= budgetToo){
-                alert("From(₩) Needs To Be Lower Than To(₩).")
-            }
-            else if(budgetFromo < 0){
-                alert("Numbers cannot be a negative number.")
-            }
-        }}>
+            style="margin-top: 1em;" 
+            on:click={() => {
+                if(budgetFromo <= budgetToo && budgetFromo >= 0){    
+                    budgetMenu.setOpen(false); 
+                    budgetSet = 1;
+                    budgetFrom.set(budgetFromo) 
+                    budgetTo.set(budgetToo)
+                }
+                else if(budgetFromo > budgetToo){
+                    alert("From(₩) Needs To Be Lower Than To(₩).")
+                }
+                else if(budgetFromo < 0){
+                    alert("Numbers cannot be a negative number.")
+                }
+            }}
+        >
             Submit
         </Button>
     </div>
@@ -481,12 +482,14 @@
             budgetSet = 0;
             budgetFrom.set(0);
             budgetTo.set(999999999999) 
+            budgetFromo = 0;
+            budgetToo = 0;
         }}>budget {$budgetFrom}₩ ~ {$budgetTo}₩</h6>
     {/if}
     {#if $onlyI}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-        <h6 on:click={() => {$onlyI = false;}}>Only Interests</h6>
+        <h6 on:click={() => {$onlyI = false;}}>Only Interests : {userInterest}</h6>
     {/if}
     {#if $searchedFor != "" && searchSet == 1}
         <h5>Searching for : </h5>
