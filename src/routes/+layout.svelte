@@ -57,16 +57,19 @@
         uploadType:'',
         userInterests : '',
     };
+    let blackListed = ["송민재"]
     async function uploadDB(){
-        const res = await fetch('/api', {
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:(JSON.stringify(obj))
-        });
-        await res.json();
-        location.reload();
+        if($loginInfo && blackListed.includes($loginInfo.displayName || '')){
+            const res = await fetch('/api', {
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:(JSON.stringify(obj))
+            });
+            await res.json();
+            location.reload();
+        }
     }
 
     import { onMount } from 'svelte'
@@ -111,7 +114,6 @@
             un();
         };
     })
-
     const login = async (firebaseConfig:FirebaseOptions) => {
         if(getApps().length === 0){
             initializeApp(firebaseConfig);
@@ -152,6 +154,7 @@
     import Checkbox from '@smui/checkbox';
     import FormField from '@smui/form-field';
     let interestsSelected:string[] = [];
+
 </script>
 <TopAppBar style="background-color:violet;position:sticky;top:0;">
     <Row>
