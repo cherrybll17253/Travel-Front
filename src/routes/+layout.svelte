@@ -99,17 +99,17 @@
         const un = onAuthStateChanged(auth, user => {
             if(user){
                 loginInfo.set(user);
+                const foundUser = data.foundB.find(v => v.userName === $loginInfo.displayName);
+                if (foundUser) {
+                    userInterest = foundUser.userInterests;
+                    $Iarray = userInterest.split(",");
+                    console.log("Iarray :" ,$Iarray);
+                }
             }
         })
-        if ($loginInfo) {
-            const foundUser = data.foundB.find(v => v.userName === $loginInfo.displayName);
-            if (foundUser) {
-                userInterest = foundUser.userInterests;
-                $Iarray = userInterest.split(",");
-                console.log("Iarray :" ,$Iarray);
-            }
-        return () => {un()};
-        }
+        return () => {
+            un();
+        };
     })
 
     const login = async (firebaseConfig:FirebaseOptions) => {
