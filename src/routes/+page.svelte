@@ -29,7 +29,19 @@
     }
     export let data:PageServerData;
     let searching = ""
-    
+    function shuffle(array:Array<Object>) {
+        let currentIndex = array.length,  randomIndex;
+        while (currentIndex > 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+        }
+
+        return array;
+    }
+    shuffle(data.foundA)
+    shuffle(data.foundB)
 </script>
 {#each data.foundA as found}    
     {#if $uploadTypeChosen == "post" && $uploadTypeChosen == found.uploadType && (($lookingFor && $lookingFor == found.uploadTitle) || !$lookingFor)}
@@ -40,6 +52,121 @@
                 !$searchedFor
             }
                 {#if !$onlyI || $onlyI && $Iarray.includes(found.uploadSort) }
+                    {#if $Iarray.includes(found.uploadSort)}
+                        <div class="cell">
+                            <img src={found.uploadImageLink} alt="placeholder" width=150>
+                            {#if $loginInfo && found.userName == $loginInfo.displayName}
+                                <h1 style="background-color:purple;"><u>{found.uploadTitle}</u></h1>
+                            {:else}
+                                <h1><u>{found.uploadTitle}</u></h1>
+                            {/if}
+                            <div id="utext">
+                                {found.uploadText}
+                            </div>
+                            <br>
+                                <a style="background-color:white;" href={"https://map.kakao.com/link/search/" + found.uploadLocation} target="_blank">Click Here For Map</a>
+
+                                <br>
+                                <strong>Uploaded By : {found.userName}</strong>
+                                <br>
+                                <strong>Budget : {found.budget}</strong>
+                            
+                            <br>
+                            <strong>Sort : {found.uploadSort}</strong>
+                            <IconButton 
+                            class="material-icons" 
+                            on:click={() => {
+                                if($loginInfo){
+                                    commentMenu.setOpen(true)
+                                    $commentAbout = found.uploadTitle;
+                                }
+                                else{
+                                    alert("You need to login to do that!")
+                                }
+                            }}>
+                                keyboard
+                            </IconButton>
+                            <IconButton 
+                            class="material-icons" 
+                            on:click={() => {
+                                $uploadTypeChosen = "comments";
+                                $ClookingFor = found.uploadTitle;
+                            }}>
+                                comment
+                            </IconButton>
+                        </div>
+                    {/if}
+                {/if}
+            {/if}
+        {/if}
+    {/if}
+    {#if $uploadTypeChosen == "comments" && $uploadTypeChosen == found.uploadType && (($ClookingFor && $ClookingFor == found.commentAbt) || !$ClookingFor)}
+        
+    <div class="comment">
+        {#if $loginInfo && found.userName == $loginInfo.displayName}
+            <h1 style="background-color:purple;">Comment About :<br> {found.commentAbt}</h1>
+        {:else}
+            <h1>Comment About :<br> {found.commentAbt}</h1>
+        {/if}
+        
+        <hr>
+        Written by : {found.userName}
+        <hr>
+        {found.commentContent}
+        <hr>
+        <button 
+            on:click={() => {
+                $uploadTypeChosen = "post"
+                $lookingFor = found.commentAbt
+            }}>
+            Go to post
+        </button>
+    </div>
+    {/if}
+{/each}
+
+<MenuSurface bind:this={commentMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;position:fixed;top:0;">
+    <div style="width:100%; position:relative; height:fit-content;">
+        <IconButton 
+            class="material-icon" 
+            style="left:80%;"
+            on:click={() => {
+                commentMenu.setOpen(false); 
+            }}
+        >X</IconButton>
+        <br>
+        <Textfield bind:value={commentT} label="Comment : "/>
+        <br>
+        For : 
+        <br>
+        {$commentAbout}
+        <br>
+        <Button 
+            style="margin-top: 1em;" 
+            on:click={async () => {
+                commentMenu.setOpen(false);
+                $commentText = commentT;
+                obj.commentContent = commentT; 
+                obj.userName = $loginInfo.displayName || '';
+                obj.commentAbt = $commentAbout;
+                obj.uploadType = 'comments';
+                await uploadDB();
+            }}
+        >
+            Submit
+        </Button>
+    </div>
+</MenuSurface>
+{#each data.foundA as found}    
+    {#if $uploadTypeChosen == "post" && $uploadTypeChosen == found.uploadType && (($lookingFor && $lookingFor == found.uploadTitle) || !$lookingFor)}
+        {#if found.budget <= $budgetTo && found.budget >= $budgetFrom || $budgetFrom == null}
+            <div class="invis">{searching = $searchedFor.toLowerCase()}</div>
+            {#if $searchedFor && (found.uploadTitle).toLowerCase().includes(searching) ||
+                $searchedFor && (found.uploadText).toLowerCase().includes(searching) || 
+                !$searchedFor
+            }
+                {#if !$onlyI}
+                    {#if !$Iarray.includes(found.uploadSort)}
                     <div class="cell">
                         <img src={found.uploadImageLink} alt="placeholder" width=150>
                         {#if $loginInfo && found.userName == $loginInfo.displayName}
@@ -82,6 +209,7 @@
                             comment
                         </IconButton>
                     </div>
+                    {/if}
                 {/if}
             {/if}
         {/if}
@@ -110,7 +238,6 @@
     </div>
     {/if}
 {/each}
-
 <MenuSurface bind:this={commentMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;position:fixed;top:0;">
     <div style="width:100%; position:relative; height:fit-content;">
         <IconButton 
