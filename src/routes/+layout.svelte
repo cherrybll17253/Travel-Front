@@ -58,9 +58,7 @@
         userInterests : '',
         deleted:0,
     };
-    let blackListed = ["송민재"]
     async function uploadDB(){
-        if($loginInfo && blackListed.includes($loginInfo.displayName || '')){
             const res = await fetch('/api', {
                 method:'POST',
                 headers:{
@@ -70,7 +68,6 @@
             });
             await res.json();
             location.reload();
-        }
     }
 
     import { onMount } from 'svelte'
