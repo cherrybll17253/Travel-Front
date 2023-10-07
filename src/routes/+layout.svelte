@@ -56,6 +56,7 @@
         budget:0,
         uploadType:'',
         userInterests : '',
+        deleted:0,
     };
     async function uploadDB(){
         const res = await fetch('/api', {

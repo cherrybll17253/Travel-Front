@@ -13,6 +13,7 @@
         commentAbt : '',
         commentContent : '',
         uploadType : '',
+        deleted: 0,
     }
     let commentMenu : MenuSurface;
     let commentT = ''
@@ -99,29 +100,6 @@
                 {/if}
             {/if}
         {/if}
-    {/if}
-    {#if $uploadTypeChosen == "comments" && $uploadTypeChosen == found.uploadType && (($ClookingFor && $ClookingFor == found.commentAbt) || !$ClookingFor)}
-        
-    <div class="comment">
-        {#if $loginInfo && found.userName == $loginInfo.displayName}
-            <h1 style="background-color:purple;">Comment About :<br> {found.commentAbt}</h1>
-        {:else}
-            <h1>Comment About :<br> {found.commentAbt}</h1>
-        {/if}
-        
-        <hr>
-        Written by : {found.userName}
-        <hr>
-        {found.commentContent}
-        <hr>
-        <button 
-            on:click={() => {
-                $uploadTypeChosen = "post"
-                $lookingFor = found.commentAbt
-            }}>
-            Go to post
-        </button>
-    </div>
     {/if}
 {/each}
 
