@@ -38,7 +38,7 @@
             body:(JSON.stringify({_id}))
         });
         await res.json();
-        // location.reload();
+        location.reload();
     }
     export let data:PageServerData;
     let searching = ""
