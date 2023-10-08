@@ -12,4 +12,5 @@ export interface Post {
     commentContent : string;
     commentAbt : string;
     userInterests : string;
+    deleted : number;
 }

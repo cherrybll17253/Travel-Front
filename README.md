@@ -1,19 +1,13 @@
 ```mermaid
 
 erDiagram
-    User ||--o{ POST : userid
+    User ||--o{ Post : userid
     User {
         string name
         string interests
         string userid
     }
-    User ||--o{ SUGGESTED : interests
-    SUGGESTED {
-        string title
-        string interests PK
-        uuid postid
-    }
-    POST {
+    Post {
         uuid postid PK
         string title
         string sort

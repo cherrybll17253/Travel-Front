@@ -1,10 +1,11 @@
 import type { RequestHandler } from "./$types";
 import db from '$lib/db';
+import { ObjectId } from "mongodb";
 import type { Collection } from 'mongodb';
 import type { Post } from '../type';
 export const GET:RequestHandler = async ({request}) => {
     const collection: Collection<Post> = db.collection('post');
-    const found = await collection.find({}).toArray()
+    const found = await collection.find({deleted : 0}).toArray()
     return new Response(JSON.stringify(found), {
         headers:{
             'Content-Type':'application/json'
@@ -24,9 +25,19 @@ export const POST:RequestHandler = async ({request}) => {
             }
         });
     }
-    else{
+    else if(json.uploadType == "comments"){
         const resultB = await collectionB.insertOne(json)
         return new Response(JSON.stringify(resultB), {
+            headers:{
+                'Content-Type':'application/json'
+            }
+        });
+    }
+    else{
+        const objectId = new ObjectId(json._id);
+        console.log(objectId)
+        const resultC = await collectionA.updateOne({_id : objectId}, {$set : {deleted : 1}})
+        return new Response(JSON.stringify(resultC), {
             headers:{
                 'Content-Type':'application/json'
             }

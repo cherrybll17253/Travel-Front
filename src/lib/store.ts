@@ -12,3 +12,5 @@ export const ClookingFor = writable<string>();
 export const searchedFor = writable<string>("");
 export const onlyI = writable<boolean>(false);
 export const Iarray = writable<Array<String>>([])
+export const myUpload = writable<boolean>(false)
+export const FdeletedPost = writable<boolean>(false)

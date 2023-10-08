@@ -20,7 +20,7 @@
         Separator,
         Subheader
     } from "@smui/list";
-    import { Iarray, onlyI, searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor, ClookingFor} from "$lib/store";
+    import { FdeletedPost, myUpload, Iarray, onlyI, searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor, ClookingFor} from "$lib/store";
     $onlyI = false;
     let open = false;
     let active = "";
@@ -59,15 +59,15 @@
         deleted:0,
     };
     async function uploadDB(){
-            const res = await fetch('/api', {
-                method:'POST',
-                headers:{
-                    'Content-Type':'application/json'
-                },
-                body:(JSON.stringify(obj))
-            });
-            await res.json();
-            location.reload();
+        const res = await fetch('/api', {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:(JSON.stringify(obj))
+        });
+        await res.json();
+        location.reload();
     }
 
     import { onMount } from 'svelte'
@@ -287,6 +287,29 @@
                 <Graphic class="material-icons" aria-hidden="true">book</Graphic>
                 <Text>Only Interests</Text>
             </Item>
+            <Item
+                href="javascript:void(0)"
+                on:click={() => {
+                    setActive("FmyUpload")
+                    $myUpload = true
+                }}
+                activated={active === "FmyUpload"}
+            >
+                <Graphic class="material-icons" aria-hidden="true">upload</Graphic>
+                <Text>Only My Upload</Text>
+            </Item>
+            <Item
+                href="javascript:void(0)"
+                on:click={() => {
+                    setActive("Fdeleted")
+                    $FdeletedPost = true
+                    $myUpload = true 
+                }}
+                activated={active === "Fdeleted"}
+            >
+                <Graphic class="material-icons" aria-hidden="true">delete</Graphic>
+                <Text>Show deleted</Text>
+            </Item>
         </List>
     </Content>
 </Drawer>
@@ -473,7 +496,7 @@
 </MenuSurface>
 
 <div class="filtercontainer">
-    {#if budgetSet == 1 || $onlyI}
+    {#if budgetSet == 1 || $onlyI || $myUpload || $FdeletedPost}
         <h5>Filters active : </h5>
     {/if}
     {#if budgetSet == 1}
@@ -491,6 +514,16 @@
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
         <h6 on:click={() => {$onlyI = false;}}>Only Interests : {userInterest}</h6>
+    {/if}
+    {#if $myUpload}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+        <h6 on:click={() => {$myUpload = false; $FdeletedPost = false}}>Only My Upload</h6>
+    {/if}
+    {#if $FdeletedPost}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+        <h6 on:click={() => {$myUpload = false; $FdeletedPost = false}}>Showing deleted Post</h6>
     {/if}
     {#if $searchedFor != "" && searchSet == 1}
         <h5>Searching for : </h5>
