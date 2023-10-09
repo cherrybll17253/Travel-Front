@@ -36,7 +36,13 @@ export const POST:RequestHandler = async ({request}) => {
     else{
         const objectId = new ObjectId(json._id);
         console.log(objectId)
-        const resultC = await collectionA.updateOne({_id : objectId}, {$set : {deleted : 1}})
+        let resultC;
+        if(json.type == "del")
+            resultC = await collectionA.updateOne({_id : objectId}, {$set : {deleted : 1}})
+        else if(json.type == "return")
+            resultC = await collectionA.updateOne({_id : objectId}, {$set : {deleted : 0}})
+        else
+            resultC = await collectionA.deleteOne({_id : objectId})
         return new Response(JSON.stringify(resultC), {
             headers:{
                 'Content-Type':'application/json'

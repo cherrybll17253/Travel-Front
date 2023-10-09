@@ -29,13 +29,13 @@
         await res.json();
         location.reload();
     }
-    async function deleteDB(_id : string){
+    async function deleteDB(_id : string, type:string){
         const res = await fetch('/api', {
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
             },
-            body:(JSON.stringify({_id}))
+            body:(JSON.stringify({_id, type}))
         });
         await res.json();
         location.reload();
@@ -74,12 +74,27 @@
                                     <img src={found.uploadImageLink} alt="placeholder" width=150>
                                     {#if $loginInfo && found.userName == $loginInfo.displayName}
                                         <h1 style="background-color:purple; display:inline-block;"><u>{found.uploadTitle}</u></h1>
-                                        <IconButton class="material-icons"
-                                            on:click={() => {
-                                                deleteDB(found._id)
-                                            }}
-                                        >delete
-                                        </IconButton>
+                                        {#if found.deleted == 0}
+                                            <IconButton class="material-icons"
+                                                on:click={() => {
+                                                    deleteDB(found._id, "del")
+                                                }}
+                                            >delete
+                                            </IconButton>
+                                        {:else}
+                                            <IconButton class="material-icons"
+                                                on:click={() => {
+                                                    deleteDB(found._id, "return")
+                                                }}
+                                            ><h6>RETURN</h6>
+                                            </IconButton>
+                                            <IconButton class="material-icons" style="left:50px;"
+                                                on:click={() => {
+                                                    deleteDB(found._id, "empty")
+                                                }}
+                                            ><h6>EMPTY</h6>
+                                            </IconButton>
+                                        {/if}
                                     {:else}
                                         <h1><u>{found.uploadTitle}</u></h1>
                                     {/if}
@@ -110,7 +125,7 @@
                                         keyboard
                                     </IconButton>
                                     <IconButton 
-                                    class="material-icons" 
+                                    class="material-icons"
                                     on:click={() => {
                                         $uploadTypeChosen = "comments";
                                         $ClookingFor = found.uploadTitle;
@@ -177,12 +192,27 @@
                                 <img src={found.uploadImageLink} alt="placeholder" width=150>
                                 {#if $loginInfo && found.userName == $loginInfo.displayName}
                                     <h1 style="background-color:purple; display:inline-block"><u>{found.uploadTitle}</u></h1>
-                                    <IconButton class="material-icons"
-                                        on:click={() => {
-                                            deleteDB(found._id)
-                                        }}
-                                    >delete
-                                    </IconButton>    
+                                    {#if found.deleted == 0}
+                                        <IconButton class="material-icons"
+                                            on:click={() => {
+                                                deleteDB(found._id, "del")
+                                            }}
+                                        >delete
+                                        </IconButton>
+                                    {:else}
+                                        <IconButton class="material-icons"
+                                            on:click={() => {
+                                                deleteDB(found._id, "return")
+                                            }}
+                                        ><h6>RETURN</h6>
+                                        </IconButton>
+                                        <IconButton class="material-icons" style="left:50px;"
+                                            on:click={() => {
+                                                deleteDB(found._id, "empty")
+                                            }}
+                                        ><h6>EMPTY</h6>
+                                        </IconButton>
+                                    {/if}  
                                 {:else}
                                     <h1><u>{found.uploadTitle}</u></h1>
                                 {/if}
@@ -228,6 +258,7 @@
         {/if}
         {/if}
     {/if}
+    {#if $FdeletedPost == true && found.deleted == 1 || $FdeletedPost == false && found.deleted == 0}
     {#if $uploadTypeChosen == "comments" && $uploadTypeChosen == found.uploadType && (($ClookingFor && $ClookingFor == found.commentAbt) || !$ClookingFor)}
     {#if $loginInfo && $myUpload && $loginInfo.displayName === found.userName ||
         !$myUpload
@@ -235,12 +266,27 @@
     <div class="comment">
         {#if $loginInfo && found.userName == $loginInfo.displayName}
             <h1 style="background-color:purple;">Comment About :<br> {found.commentAbt}</h1>
-            <IconButton class="material-icons"
-                on:click={() => {
-                    deleteDB(found._id)
-                }}
-            >delete
-            </IconButton>      
+            {#if $FdeletedPost == false}        
+                <IconButton class="material-icons"
+                    on:click={() => {
+                        deleteDB(found._id, "del")
+                    }}
+                >delete
+                </IconButton>      
+            {:else}
+                <IconButton class="material-icons"
+                    on:click={() => {
+                        deleteDB(found._id, "return")
+                    }}
+                >RETURN
+                </IconButton>
+                <IconButton class="material-icons" style="left:50px;"
+                    on:click={() => {
+                        deleteDB(found._id, "empty")
+                    }}
+                >EMPTY
+                </IconButton>
+            {/if}
         {:else}
             <h1>Comment About :<br> {found.commentAbt}</h1>
         {/if}
@@ -258,6 +304,7 @@
             Go to post
         </button>
     </div>
+    {/if}
     {/if}
     {/if}
 {/each}
