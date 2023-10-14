@@ -221,7 +221,6 @@
                                 </div>
                                 <br>
                                     <a style="background-color:white;" href={"https://map.kakao.com/link/search/" + found.uploadLocation} target="_blank">Click Here For Map</a>
-
                                     <br>
                                     <strong>Uploaded By : {found.userName}</strong>
                                     <br>
@@ -290,7 +289,6 @@
         {:else}
             <h1>Comment About :<br> {found.commentAbt}</h1>
         {/if}
-        
         <hr>
         Written by : {found.userName}
         <hr>
@@ -341,7 +339,6 @@
     </div>
 </MenuSurface>
 <hr>
-
 <style>
     * {
         margin: 0;

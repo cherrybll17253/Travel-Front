@@ -30,7 +30,7 @@
         open = false;
     }
 
-    let randomSlogan = Math.floor(Math.random() * 4 + 1);
+    let randomSlogan = Math.floor(Math.random() * 5 + 1);
 
     import MenuSurface from '@smui/menu-surface';
     import Textfield from '@smui/textfield'; 
@@ -175,7 +175,10 @@
                 <h1>"Escape, explore, and create unforgettable memories."</h1>
             {/if}
             {#if randomSlogan == 4}
-                <h1>"Freedom is more valuable when you explore somewhere far"</h1>
+                <h1>"Start your stress-free travel planning."</h1>
+            {/if}
+            {#if randomSlogan == 5}
+                <h1>"Discover your dream vacation effortlessly."</h1>
             {/if}
         </Section>
         <Section align="end" toolbar>
@@ -366,7 +369,6 @@
               <Text>Comments</Text>
             </Item>
         </List>
-        Selected : {$uploadTypeChosen}
     </div>
 </MenuSurface>
 <MenuSurface bind:this={uploadMenu} anchorCorner="BOTTOM_LEFT" style="position:fixed;top:0;">
