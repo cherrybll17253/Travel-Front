@@ -1,16 +1,18 @@
 ```mermaid
 
-erDiagram
-    User ||--o{ Post : userid
-    User {
-        string name
-        string interests
-        string userid
-    }
-    Post {
-        uuid postid PK
-        string title
-        string sort
-        uuid userid PK
-    }
+flowchart LR
+    MongoDB업로드
+    page[(+page.svelte data)]
+    DB([MongoDB])
+    user([User])
+    Data[(DB)]
+    user -->upload--> DB
+    user --UserName--> DB
+    DB-->+uploadType-->Data
+    upload-->+uploadType
+    
+    Data --- uploadType댓글
+    Data --- uploadType게시물
+    uploadType댓글 --> page
+    uploadType게시물 --> page
 ```

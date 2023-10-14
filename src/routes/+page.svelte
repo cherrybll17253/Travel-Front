@@ -73,7 +73,7 @@
                                 <div class="cell">
                                     <img src={found.uploadImageLink} alt="placeholder" width=150>
                                     {#if $loginInfo && found.userName == $loginInfo.displayName}
-                                        <h1 style="background-color:purple; display:inline-block;"><u>{found.uploadTitle}</u></h1>
+                                        <h1 style="background-color:purple; display:inline-block;"><u><a href={"https://www.google.com/search?q=" + found.uploadTitle} target="_blank">{found.uploadTitle}</a></u></h1>
                                         {#if found.deleted == 0}
                                             <IconButton class="material-icons"
                                                 on:click={() => {
@@ -96,7 +96,7 @@
                                             </IconButton>
                                         {/if}
                                     {:else}
-                                        <h1><u>{found.uploadTitle}</u></h1>
+                                        <h1><u><a href={"https://www.google.com/search?q=" + found.uploadTitle} target="_blank">{found.uploadTitle}</a></u></h1>
                                     {/if}
                                     <div id="utext">
                                         {found.uploadText}
@@ -191,7 +191,7 @@
                             <div class="cell">
                                 <img src={found.uploadImageLink} alt="placeholder" width=150>
                                 {#if $loginInfo && found.userName == $loginInfo.displayName}
-                                    <h1 style="background-color:purple; display:inline-block"><u>{found.uploadTitle}</u></h1>
+                                    <h1 style="background-color:purple; display:inline-block"><u><a href={"https://www.google.com/search?q=" + found.uploadTitle} target="_blank">{found.uploadTitle}</a></u></h1>
                                     {#if found.deleted == 0}
                                         <IconButton class="material-icons"
                                             on:click={() => {
@@ -214,7 +214,7 @@
                                         </IconButton>
                                     {/if}  
                                 {:else}
-                                    <h1><u>{found.uploadTitle}</u></h1>
+                                    <h1><u><a href={"https://www.google.com/search?q=" + found.uploadTitle} target="_blank">{found.uploadTitle}</a></u></h1>
                                 {/if}
                                 <div id="utext">
                                     {found.uploadText}
@@ -363,6 +363,9 @@
     }
     #utext{
         border:solid 1px violet;
+    }
+    u a{
+        color:white;
     }
     .cell strong{
         border:solid 1px violet;
