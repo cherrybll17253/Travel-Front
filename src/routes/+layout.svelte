@@ -124,9 +124,9 @@
             const result = await signInWithRedirect(auth, provider); 
             const credential = GoogleAuthProvider.credentialFromResult(result);
             // const token = credential?.accessToken;
-            // // const user = result.user
+            // const user = result.user
 
-            // // return { token , user};
+            // return { token , user};
         } catch(error){
             if(error instanceof FirebaseError){
                 const code = error.code;
