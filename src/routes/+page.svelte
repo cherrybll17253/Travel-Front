@@ -27,7 +27,6 @@
             body:(JSON.stringify(obj))
         });
         await res.json();
-        location.reload();
     }
     async function deleteDB(_id : string, type:string){
         const res = await fetch('/api', {
@@ -39,6 +38,26 @@
         });
         await res.json();
         location.reload();
+    }
+    async function clickDB(_id : string, type:string){
+        const res = await fetch('/api', {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:(JSON.stringify({_id, type}))
+        });
+        await res.json();
+    }
+    async function commentCountDB(_id : string, type:string){
+        const res = await fetch('/api', {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:(JSON.stringify({_id, type}))
+        });
+        await res.json();
     }
     export let data:PageServerData;
     let searching = ""
@@ -55,6 +74,7 @@
     }
     shuffle(data.foundA)
     shuffle(data.foundB)
+    let currentAbout = ""
 </script>
 {#each data.foundA as found}    
     {#if $FdeletedPost == false && found.deleted == 0 || $FdeletedPost == true && found.deleted == 1}
@@ -73,7 +93,7 @@
                                 <div class="cell">
                                     <img src={found.uploadImageLink} alt="placeholder" width=150>
                                     {#if $loginInfo && found.userName == $loginInfo.displayName}
-                                        <h1 style="background-color:purple; display:inline-block;"><u><a href={"https://www.google.com/search?q=" + found.uploadTitle} target="_blank">{found.uploadTitle}</a></u></h1>
+                                        <h1 style="background-color:purple; display:inline-block;"><u><a on:click={() => {clickDB(found._id, "click");}} href={"https://www.google.com/search?q=" + found.uploadTitle} target="_blank">{found.uploadTitle}</a></u></h1>
                                         {#if found.deleted == 0}
                                             <IconButton class="material-icons"
                                                 on:click={() => {
@@ -96,7 +116,7 @@
                                             </IconButton>
                                         {/if}
                                     {:else}
-                                        <h1><u><a href={"https://www.google.com/search?q=" + found.uploadTitle} target="_blank">{found.uploadTitle}</a></u></h1>
+                                        <h1><u><a on:click={() => {clickDB(found._id, "click");}} href={"https://www.google.com/search?q=" + found.uploadTitle} target="_blank">{found.uploadTitle}</a></u></h1>
                                     {/if}
                                     <div id="utext">
                                         {found.uploadText}
@@ -108,8 +128,11 @@
                                         <strong>Uploaded By : {found.userName}</strong>
                                         <br>
                                         <strong>Budget : {found.budget}</strong>
-                                    
-                                    <br>
+                                        <br>
+                                        <strong>Views : {found.clicked}</strong>
+                                        <br>
+                                        <strong>Comments : {found.commentAmount}</strong>
+                                        <br>
                                     <strong>Sort : {found.uploadSort}</strong>
                                     <IconButton 
                                     class="material-icons" 
@@ -117,6 +140,8 @@
                                         if($loginInfo){
                                             commentMenu.setOpen(true)
                                             $commentAbout = found.uploadTitle;
+                                            currentAbout = found._id;
+                                            console.log(currentAbout)
                                         }
                                         else{
                                             alert("You need to login to do that!")
@@ -167,6 +192,7 @@
                 obj.userName = $loginInfo.displayName || '';
                 obj.commentAbt = $commentAbout;
                 obj.uploadType = 'comments';
+                await commentCountDB(currentAbout, "commentcount");
                 await uploadDB();
             }}
         >
@@ -191,7 +217,7 @@
                             <div class="cell">
                                 <img src={found.uploadImageLink} alt="placeholder" width=150>
                                 {#if $loginInfo && found.userName == $loginInfo.displayName}
-                                    <h1 style="background-color:purple; display:inline-block"><u><a href={"https://www.google.com/search?q=" + found.uploadTitle} target="_blank">{found.uploadTitle}</a></u></h1>
+                                    <h1 style="background-color:purple; display:inline-block"><u><a on:click={() => {clickDB(found._id, "click");}} href={"https://www.google.com/search?q=" + found.uploadTitle} target="_blank">{found.uploadTitle}</a></u></h1>
                                     {#if found.deleted == 0}
                                         <IconButton class="material-icons"
                                             on:click={() => {
@@ -214,7 +240,7 @@
                                         </IconButton>
                                     {/if}  
                                 {:else}
-                                    <h1><u><a href={"https://www.google.com/search?q=" + found.uploadTitle} target="_blank">{found.uploadTitle}</a></u></h1>
+                                    <h1><u><a on:click={() => {clickDB(found._id, "click");}} href={"https://www.google.com/search?q=" + found.uploadTitle} target="_blank">{found.uploadTitle}</a></u></h1>
                                 {/if}
                                 <div id="utext">
                                     {found.uploadText}
@@ -225,15 +251,20 @@
                                     <strong>Uploaded By : {found.userName}</strong>
                                     <br>
                                     <strong>Budget : {found.budget}</strong>
-                                
+                                <br>
+                                <strong>Views : {found.clicked}</strong>
+                                <br>
+                                <strong>Comments : {found.commentAmount}</strong>
                                 <br>
                                 <strong>Sort : {found.uploadSort}</strong>
                                 <IconButton 
                                 class="material-icons" 
-                                on:click={() => {
+                                on:click={async() => {
                                     if($loginInfo){
                                         commentMenu.setOpen(true)
                                         $commentAbout = found.uploadTitle;
+                                        currentAbout = found._id;
+                                        console.log(currentAbout)
                                     }
                                     else{
                                         alert("You need to login to do that!")
@@ -306,38 +337,6 @@
     {/if}
     {/if}
 {/each}
-<MenuSurface bind:this={commentMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;position:fixed;top:0;">
-    <div style="width:100%; position:relative; height:fit-content;">
-        <IconButton 
-            class="material-icon" 
-            style="left:80%;"
-            on:click={() => {
-                commentMenu.setOpen(false); 
-            }}
-        >X</IconButton>
-        <br>
-        <Textfield bind:value={commentT} label="Comment : "/>
-        <br>
-        For : 
-        <br>
-        {$commentAbout}
-        <br>
-        <Button 
-            style="margin-top: 1em;" 
-            on:click={async () => {
-                commentMenu.setOpen(false);
-                $commentText = commentT;
-                obj.commentContent = commentT; 
-                obj.userName = $loginInfo.displayName || '';
-                obj.commentAbt = $commentAbout;
-                obj.uploadType = 'comments';
-                await uploadDB();
-            }}
-        >
-            Submit
-        </Button>
-    </div>
-</MenuSurface>
 <hr>
 <style>
     * {

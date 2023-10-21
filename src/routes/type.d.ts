@@ -13,4 +13,6 @@ export interface Post {
     commentAbt : string;
     userInterests : string;
     deleted : number;
+    clicked : number;
+    commentAmount : number;
 }
