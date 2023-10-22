@@ -64,10 +64,10 @@
     function shuffle(array:Array<Object>) {
         let currentIndex = array.length,  randomIndex;
         while (currentIndex > 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
 
-        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
         }
 
         return array;
@@ -75,6 +75,21 @@
     shuffle(data.foundA)
     shuffle(data.foundB)
     let currentAbout = ""
+    data.foundA.sort(function(a, b) {
+        let pointsA = 0;
+        let pointsB = 0;
+
+        pointsA += a.clicked + a.commentAmount/a.clicked
+        pointsB += b.clicked + b.commentAmount/b.clicked
+                
+        if($Iarray.includes(a.uploadSort))
+            pointsA += 10;
+        if($Iarray.includes(b.uploadSort))
+            pointsB += 10;
+
+        return (pointsB) - (pointsA)
+    });
+    console.log(data.foundA)
 </script>
 {#each data.foundA as found}    
     {#if $FdeletedPost == false && found.deleted == 0 || $FdeletedPost == true && found.deleted == 1}
