@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { FdeletedPost, myUpload,Iarray, onlyI, searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout, lookingFor, commentText, ClookingFor } from "$lib/store";
+    import { searchUser, FdeletedPost, myUpload,Iarray, onlyI, searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, commentAbout, lookingFor, commentText, ClookingFor } from "$lib/store";
     $uploadTypeChosen = "post"
     import IconButton, { Icon } from "@smui/icon-button";
     import Button, { Label } from "@smui/button";
@@ -83,104 +83,14 @@
         pointsB += b.clicked + b.commentAmount/b.clicked
         
         if($Iarray && $Iarray.includes(a.uploadSort))
-            pointsA += 10;
+            pointsA += 100;
         if($Iarray && $Iarray.includes(b.uploadSort))
-            pointsB += 10;
+            pointsB += 100;
 
         return (pointsB) - (pointsA)
     });
     console.log(data.foundA)
 </script>
-{#each data.foundA as found}    
-    {#if $FdeletedPost == false && found.deleted == 0 || $FdeletedPost == true && found.deleted == 1}
-        {#if $uploadTypeChosen == "post" && $uploadTypeChosen == found.uploadType && (($lookingFor && $lookingFor == found.uploadTitle) || !$lookingFor)}
-            {#if found.budget <= $budgetTo && found.budget >= $budgetFrom || $budgetFrom == null}
-                <div class="invis">{searching = $searchedFor.toLowerCase()}</div>
-                {#if $searchedFor && (found.uploadTitle).toLowerCase().includes(searching) ||
-                    $searchedFor && (found.uploadText).toLowerCase().includes(searching) || 
-                    !$searchedFor
-                }
-                    {#if !$onlyI || $onlyI && $Iarray.includes(found.uploadSort) }
-                        {#if $Iarray.includes(found.uploadSort)}
-                            {#if $loginInfo && $myUpload && $loginInfo.displayName === found.userName ||
-                                !$myUpload
-                            }
-                                <div class="cell">
-                                    <img src={found.uploadImageLink} alt="placeholder" width=150>
-                                    {#if $loginInfo && found.userName == $loginInfo.displayName}
-                                        <h1 style="background-color:purple; display:inline-block;"><u><a on:click={() => {clickDB(found._id, "click");}} href={"https://www.google.com/search?q=" + found.uploadTitle} target="_blank">{found.uploadTitle}</a></u></h1>
-                                        {#if found.deleted == 0}
-                                            <IconButton class="material-icons"
-                                                on:click={() => {
-                                                    deleteDB(found._id, "del")
-                                                }}
-                                            >delete
-                                            </IconButton>
-                                        {:else}
-                                            <IconButton class="material-icons"
-                                                on:click={() => {
-                                                    deleteDB(found._id, "return")
-                                                }}
-                                            ><h6>RETURN</h6>
-                                            </IconButton>
-                                            <IconButton class="material-icons" style="left:50px;"
-                                                on:click={() => {
-                                                    deleteDB(found._id, "empty")
-                                                }}
-                                            ><h6>EMPTY</h6>
-                                            </IconButton>
-                                        {/if}
-                                    {:else}
-                                        <h1><u><a on:click={() => {clickDB(found._id, "click");}} href={"https://www.google.com/search?q=" + found.uploadTitle} target="_blank">{found.uploadTitle}</a></u></h1>
-                                    {/if}
-                                    <div id="utext">
-                                        {found.uploadText}
-                                    </div>
-                                    <br>
-                                        <a style="background-color:white;" href={"https://map.kakao.com/link/search/" + found.uploadLocation} target="_blank">Click Here For Map</a>
-
-                                        <br>
-                                        <strong>Uploaded By : {found.userName}</strong>
-                                        <br>
-                                        <strong>Budget : {found.budget}</strong>
-                                        <br>
-                                        <strong>Views : {found.clicked}</strong>
-                                        <br>
-                                        <strong>Comments : {found.commentAmount}</strong>
-                                        <br>
-                                    <strong>Sort : {found.uploadSort}</strong>
-                                    <IconButton 
-                                    class="material-icons" 
-                                    on:click={() => {
-                                        if($loginInfo){
-                                            commentMenu.setOpen(true)
-                                            $commentAbout = found.uploadTitle;
-                                            currentAbout = found._id;
-                                            console.log(currentAbout)
-                                        }
-                                        else{
-                                            alert("You need to login to do that!")
-                                        }
-                                    }}>
-                                        keyboard
-                                    </IconButton>
-                                    <IconButton 
-                                    class="material-icons"
-                                    on:click={() => {
-                                        $uploadTypeChosen = "comments";
-                                        $ClookingFor = found.uploadTitle;
-                                    }}>
-                                        comment
-                                    </IconButton>
-                                </div>
-                            {/if}
-                        {/if}
-                    {/if}
-                {/if}
-            {/if}
-        {/if}
-    {/if}
-{/each}
 
 <MenuSurface bind:this={commentMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;position:fixed;top:0;">
     <div style="width:100%; position:relative; height:fit-content;">
@@ -216,6 +126,7 @@
     </div>
 </MenuSurface>
 {#each data.foundA as found}    
+{#if !$searchUser || $searchUser && (found.userName).toLowerCase().includes($searchUser.toLowerCase())}
 {#if $FdeletedPost == false && found.deleted == 0 || $FdeletedPost == true && found.deleted == 1}
     {#if $uploadTypeChosen == "post" && $uploadTypeChosen == found.uploadType && (($lookingFor && $lookingFor == found.uploadTitle) || !$lookingFor)}
         {#if found.budget <= $budgetTo && found.budget >= $budgetFrom || $budgetFrom == null}
@@ -224,8 +135,7 @@
                 $searchedFor && (found.uploadText).toLowerCase().includes(searching) || 
                 !$searchedFor
             }
-                {#if !$onlyI}
-                    {#if !$Iarray.includes(found.uploadSort)}
+                {#if !$onlyI || $onlyI && $Iarray.includes(found.uploadSort)}
                         {#if $loginInfo && $myUpload && $loginInfo.displayName === found.userName ||
                             !$myUpload
                         }
@@ -263,7 +173,7 @@
                                 <br>
                                     <a style="background-color:white;" href={"https://map.kakao.com/link/search/" + found.uploadLocation} target="_blank">Click Here For Map</a>
                                     <br>
-                                    <strong>Uploaded By : {found.userName}</strong>
+                                    <strong>Uploaded By : <button on:click={() =>{$searchUser = found.userName}}>{found.userName}</button></strong>
                                     <br>
                                     <strong>Budget : {found.budget}</strong>
                                 <br>
@@ -300,7 +210,6 @@
                     {/if}
                 {/if}
             {/if}
-        {/if}
         {/if}
     {/if}
     {#if $FdeletedPost == true && found.deleted == 1 || $FdeletedPost == false && found.deleted == 0}
@@ -348,6 +257,7 @@
             Go to post
         </button>
     </div>
+    {/if}
     {/if}
     {/if}
     {/if}

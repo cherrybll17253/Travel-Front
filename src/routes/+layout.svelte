@@ -20,7 +20,7 @@
         Separator,
         Subheader
     } from "@smui/list";
-    import { FdeletedPost, myUpload, Iarray, onlyI, searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor, ClookingFor} from "$lib/store";
+    import { searchUser, FdeletedPost, myUpload, Iarray, onlyI, searchedFor, loginInfo, budgetFrom, budgetTo, uploadTypeChosen, lookingFor, ClookingFor} from "$lib/store";
     $onlyI = false;
     let open = false;
     let active = "";
@@ -40,6 +40,7 @@
     let uploadMenu: MenuSurface;
     let searchMenu: MenuSurface;
     let interestsMenu: MenuSurface;
+    let userSearchMenu: MenuSurface;
     let budgetSet = 0;
     let budgetFromo = 0;
     let budgetToo = 0;
@@ -145,9 +146,9 @@
         await auth.signOut()
         location.reload()
     }
-    let searchText = ''
-    let userInterest = ''
-
+    let searchText = '';
+    let userInterest = '';
+    let userSearchText = "";
     import Checkbox from '@smui/checkbox';
     import FormField from '@smui/form-field';
     let interestsSelected:string[] = [];
@@ -469,7 +470,7 @@
 </MenuSurface>
 <MenuSurface bind:this={searchMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;position:fixed;top:0;">
     <div
-        style="width:100%; position:relative; height:160px;"
+        style="width:100%; position:relative; height:300px;"
     >
         <IconButton 
             class="material-icon" 
@@ -493,12 +494,54 @@
         >
             Submit
         </Button>
+        <br>
+        <span>Or search for User?</span>
+        <IconButton
+            class="material-icons"
+            on:click={() => {
+                searchMenu.setOpen(false)
+                userSearchMenu.setOpen(true)
+            }}
+        >
+        man
+        </IconButton>
     </div>
 </MenuSurface>
-
+<MenuSurface bind:this={userSearchMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;position:fixed;top:0;">
+    <div
+        style="width:100%; position:relative; height:160px;"
+    >
+        <IconButton 
+            class="material-icon" 
+            style="left:80%;"
+            on:click={() => {
+                userSearchMenu.setOpen(false); 
+            }}
+        >X</IconButton>
+        <br>
+        <Textfield bind:value={userSearchText} label="Looking for user: " style="width:100%;"/>
+        <br>
+        <Button 
+            style="margin-top: 1em;" 
+            on:click={() => {
+                userSearchMenu.setOpen(false); 
+                $searchUser = userSearchText;
+                userSearchText = "";
+                $uploadTypeChosen = "post";
+            }}
+        >
+            Submit
+        </Button>
+    </div>
+</MenuSurface>
 <div class="filtercontainer">
-    {#if budgetSet == 1 || $onlyI || $myUpload || $FdeletedPost}
+    {#if budgetSet == 1 || $onlyI || $myUpload || $FdeletedPost || $searchUser}
         <h5>Filters active : </h5>
+    {/if}
+    {#if $searchUser}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+        <h6 on:click={() => {$searchUser = "";}}>Only posts by : {$searchUser}</h6>
     {/if}
     {#if budgetSet == 1}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
