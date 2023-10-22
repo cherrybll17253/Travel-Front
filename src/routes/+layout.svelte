@@ -104,7 +104,6 @@
                 if (foundUser) {
                     userInterest = foundUser.userInterests;
                     $Iarray = userInterest.split(",");
-                    console.log("Iarray :" ,$Iarray);
                 }
             }
         })

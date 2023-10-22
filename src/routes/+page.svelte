@@ -81,10 +81,10 @@
 
         pointsA += a.clicked + a.commentAmount/a.clicked
         pointsB += b.clicked + b.commentAmount/b.clicked
-                
-        if($Iarray.includes(a.uploadSort))
+        
+        if($Iarray && $Iarray.includes(a.uploadSort))
             pointsA += 10;
-        if($Iarray.includes(b.uploadSort))
+        if($Iarray && $Iarray.includes(b.uploadSort))
             pointsB += 10;
 
         return (pointsB) - (pointsA)
