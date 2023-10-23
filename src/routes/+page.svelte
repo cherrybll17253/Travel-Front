@@ -27,6 +27,7 @@
             body:(JSON.stringify(obj))
         });
         await res.json();
+        location.reload()
     }
     async function deleteDB(_id : string, type:string){
         const res = await fetch('/api', {
@@ -37,7 +38,6 @@
             body:(JSON.stringify({_id, type}))
         });
         await res.json();
-        location.reload();
     }
     async function clickDB(_id : string, type:string){
         const res = await fetch('/api', {
