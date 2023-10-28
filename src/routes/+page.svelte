@@ -74,22 +74,31 @@
     }
     shuffle(data.foundA)
     shuffle(data.foundB)
+    const updatePoint = (Iarray:string[]) => {
+        if(!Iarray) return;
+        for(let i = 0; i < data.foundA.length; i++){
+            for(let j = i + 1; j < data.foundA.length; j++){
+                let pointsA = 0;
+                let pointsB = 0;
+                let a = data.foundA[i]
+                let b = data.foundA[j]
+                if(a.clicked)
+                    pointsA += a.clicked + a.commentAmount*10
+                if(b.clicked)
+                    pointsB += b.clicked + b.commentAmount*10
+                if(Iarray.includes(a.uploadSort))
+                    pointsA += 100;
+                if(Iarray.includes(b.uploadSort))
+                    pointsB += 100;
+                a.points = pointsA
+                b.points = pointsB
+            }
+        }
+        data.foundA = data.foundA.sort((a, b) => b.points - a.points)
+    }
     let currentAbout = ""
-    data.foundA.sort(function(a, b) {
-        let pointsA = 0;
-        let pointsB = 0;
-
-        pointsA += a.clicked + a.commentAmount/a.clicked
-        pointsB += b.clicked + b.commentAmount/b.clicked
-        
-        if($Iarray && $Iarray.includes(a.uploadSort))
-            pointsA += 100;
-        if($Iarray && $Iarray.includes(b.uploadSort))
-            pointsB += 100;
-
-        return (pointsB) - (pointsA)
-    });
-    console.log(data.foundA)
+    $:updatePoint($Iarray)
+    
 </script>
 
 <MenuSurface bind:this={commentMenu} anchorCorner="BOTTOM_LEFT" style="left:80%; width:20%;position:fixed;top:0;">

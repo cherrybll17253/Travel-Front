@@ -15,4 +15,5 @@ export interface Post {
     deleted : number;
     clicked : number;
     commentAmount : number;
+    points : number;
 }
