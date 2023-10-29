@@ -167,7 +167,7 @@
                                     {found.uploadText}
                                 </div>
                                 <br>
-                                    <a style="background-color:white;" href={"https://map.kakao.com/link/search/" + found.uploadLocation} target="_blank">Click Here For Map</a>
+                                    <a on:click={()=> {clickDB(found._id, "click");}} style="background-color:white;" href={"https://map.kakao.com/link/search/" + found.uploadLocation} target="_blank">Click Here For Map</a>
                                     <br>
                                     <strong>Uploaded By : <button on:click={() =>{$searchUser = found.userName}}>{found.userName}</button></strong>
                                     <br>
