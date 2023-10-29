@@ -61,19 +61,9 @@
     }
     export let data:PageServerData;
     let searching = ""
-    function shuffle(array:Array<Object>) {
-        let currentIndex = array.length,  randomIndex;
-        while (currentIndex > 0) {
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex--;
-
-            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-        }
-
-        return array;
-    }
-    shuffle(data.foundA)
-    shuffle(data.foundB)
+    let tempArray = []
+    tempArray = data.foundA.reverse()
+    data.foundA = tempArray
     const updatePoint = (Iarray:string[]) => {
         if(!Iarray) return;
         for(let i = 0; i < data.foundA.length; i++){
