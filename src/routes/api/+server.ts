@@ -27,7 +27,7 @@ export const POST:RequestHandler = async ({request}) => {
             }
         });
     }
-    else if(json.uploadType == "comments"){
+    else if(json.uploadType == "userInfo"){
         const resultB = await collectionB.insertOne(json)
         return new Response(JSON.stringify(resultB), {
             headers:{

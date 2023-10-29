@@ -61,9 +61,6 @@
     }
     export let data:PageServerData;
     let searching = ""
-    let tempArray = []
-    tempArray = data.foundA.reverse()
-    data.foundA = tempArray
     const updatePoint = (Iarray:string[]) => {
         if(!Iarray) return;
         for(let i = 0; i < data.foundA.length; i++){
