@@ -70,15 +70,19 @@
                 let a = data.foundA[i]
                 let b = data.foundA[j]
                 if(a.clicked)
-                    pointsA += a.clicked + a.commentAmount*10
+                    pointsA += a.clicked
+                if(a.commentAmount)
+                    pointsA += a.commentAmount*10
                 if(b.clicked)
-                    pointsB += b.clicked + b.commentAmount*10
+                    pointsB += b.clicked
+                if(b.commentAmount)
+                    pointsB += b.commentAmount*10
                 if(Iarray.includes(a.uploadSort))
                     pointsA += 100;
                 if(Iarray.includes(b.uploadSort))
                     pointsB += 100;
-                a.points = pointsA
-                b.points = pointsB
+                data.foundA[i].points = pointsA
+                data.foundA[j].points = pointsB
             }
         }
         data.foundA = data.foundA.sort((a, b) => b.points - a.points)
