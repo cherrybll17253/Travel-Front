@@ -78,9 +78,9 @@
                 if(b.commentAmount)
                     pointsB += b.commentAmount*10
                 if(Iarray.includes(a.uploadSort))
-                    pointsA += 100;
+                    pointsA *= 2;
                 if(Iarray.includes(b.uploadSort))
-                    pointsB += 100;
+                    pointsB *= 2;
                 data.foundA[i].points = pointsA
                 data.foundA[j].points = pointsB
             }
